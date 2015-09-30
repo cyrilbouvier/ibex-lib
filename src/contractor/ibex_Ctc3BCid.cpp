@@ -11,6 +11,7 @@
 
 #include "ibex_Ctc3BCid.h"
 
+using namespace std;
 namespace ibex {
 
 const int Ctc3BCid::default_s3b = 10;
@@ -34,6 +35,7 @@ Ctc3BCid::Ctc3BCid(Ctc& ctc, int s3b, int scid, int vhandled, double var_min_wid
                     		var_min_width(var_min_width), start_var(0), impact(BitSet::empty(nb_var)) {
 
 	assert(ctc.nb_var>0);
+	assert(s3b >0);
 //	if (ctc.nb_var<=0)
 //		ibex_error("Ctc3BCID : the contractor is non-dimensional, Please specify the dimension with: \n Ctc3BCid(int nb_var, Ctc& ctc, int s3b, int scid, int vhandled, double var_min_width);");
 }
@@ -56,6 +58,8 @@ bool Ctc3BCid::equalBoxes (int var, IntervalVector &box1, IntervalVector &box2) 
 
 void Ctc3BCid::contract(IntervalVector& box) {
 	int var;                                           // [gch] variable to be carCIDed
+	bool sideeffects = ctc.side_effects();
+        ctc.disable_side_effects();
 
 	start_var=nb_var-1;                                //  patch pour l'optim  A RETIRER ??
 	impact.clear();                                    // [gch]
@@ -65,13 +69,17 @@ void Ctc3BCid::contract(IntervalVector& box) {
 
 		impact.add(var);                              // [gch]
 		var3BCID(box,var);
+
 		impact.remove(var);                           // [gch]
 
 		if(box.is_empty()) {
 			set_flag(FIXPOINT);
+			if (sideeffects) ctc.enable_side_effects();
+
 			return;
 		}
 	}
+	if (sideeffects) ctc.enable_side_effects();
 
 	//	start_var=(start_var+vhandled)%nb_var;             //  en contradiction avec le patch pour l'optim
 }
@@ -107,9 +115,10 @@ bool Ctc3BCid::var3BCID_dicho(IntervalVector& box, int var, double w3b) {
 
 	bool r0= shave_bound_dicho(box, var, w3b, true);    // left shaving , after box contains the left slide
 
+        if (box.is_empty()) return true;
 	if (box[var].ub() == initbox[var].ub())
 		return true;                                   // the left slide reaches the right bound : nothing more to do
-
+	
 	IntervalVector leftbox=box;
 	box=initbox;
 	box[var]= Interval(leftbox[var].lb(),initbox[var].ub());
@@ -144,6 +153,7 @@ bool Ctc3BCid::shave_bound_dicho(IntervalVector& box, int var,  double wv, bool 
 	IntervalVector initbox = box;
 	Interval& x(box[var]);
 
+
 	double inf = x.lb();                                // inf bound (to increase)
 	double sup = x.ub();                                // sup bound (to decrease)
 	double inf0 = inf;
@@ -151,7 +161,7 @@ bool Ctc3BCid::shave_bound_dicho(IntervalVector& box, int var,  double wv, bool 
 	volatile double tmp;
 
 	//cout.precision(20);
-	// cout << endl << "Shaving variable " << space.var_name(var) << " bound " << (left?"left":"right") << endl;
+	//	cout << endl << "Shaving variable " << var << " bound " << (left?"left":"right") <<  " inf "  << inf <<  " sup  " << sup << endl;
 
 	if (left) {
 
@@ -159,7 +169,7 @@ bool Ctc3BCid::shave_bound_dicho(IntervalVector& box, int var,  double wv, bool 
 		double rb  = sup;                              // right bound of the border (should decrease even when shaving
 		// left, thanks to the "bound" test -not yet-)
 		while (1) {
-			//      cout << "  inf=" << inf << " lb=" << lb << " rb=" << rb << " sup=" << sup << endl;
+		  //		        cout << " left  inf=" << inf << " lb=" << lb << " rb=" << rb << " sup=" << sup << endl;
 			box[var] = Interval(inf,lb);
 
 			ctc.contract(box,impact);              // [gch] only "var" is set in "impact".
@@ -176,7 +186,9 @@ bool Ctc3BCid::shave_bound_dicho(IntervalVector& box, int var,  double wv, bool 
 				//	cout << "      slice removed.\n";
 				if (inf==lb) {                         // border is degenerated and current=border
 					if (inf==sup)                      // current=border=the whole interval itself:
-						return true;                   //   in this case the box must remain entirely emptied
+					  {//cout << " inf = sup " ; 
+					    box.set_empty() ; return true;                   //   in this case the box must remain entirely emptied
+					  }
 					else break;                        // return anyway (no more to do).
 				}
 				tmp = inf;                             // current value of inf is used two lines below, save it
@@ -186,6 +198,7 @@ bool Ctc3BCid::shave_bound_dicho(IntervalVector& box, int var,  double wv, bool 
 				if (lb>rb) lb = rb;                    // the largest possible: lb<-rb => try the whole border interval once
 				box = initbox;                         // restore domains (slice has changed)
 			}
+
 		}
 	} else {
 
@@ -193,7 +206,7 @@ bool Ctc3BCid::shave_bound_dicho(IntervalVector& box, int var,  double wv, bool 
 		double lb  = inf;                              // left bound of the border (should increase even when shaving
 		// right, thanks to the "bound" test -not yet-)
 		while (1) {
-			//      cout << "  inf=" << inf << " lb=" << lb << " rb=" << rb << " sup=" << sup << endl;
+		  //			     cout << " right  inf=" << inf << " lb=" << lb << " rb=" << rb << " sup=" << sup << endl;
 			box[var] = Interval(rb,sup);
 
 			ctc.contract(box,impact);              // [gch] only "var" is set in "impact".

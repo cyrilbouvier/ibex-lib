@@ -230,6 +230,7 @@ class Ctc3BCid : public Ctc {
 
 	virtual int limitCIDDichotomy () ;
 	
+        void ctc_contract (IntervalVector & box, BitSet& impact);
 };
 
 } // end namespace ibex

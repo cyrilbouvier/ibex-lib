@@ -133,7 +133,7 @@ int main() {
 	
 	pendingList.push_back(box);
 	
-	CtcQInterProjF ctcq(m_ctc,Q);
+	CtcQInter ctcq(3,m_ctc,Q);
 	CtcFixPoint ctcf(ctcq);
 
 	int counter = 0;
@@ -145,7 +145,9 @@ int main() {
 		counter++;
 		b = pendingList.front();
 		pendingList.pop_front();
+		//		cout << " box avant contract " << b << endl;
 	        ctcf.contract(b);
+		//		cout << " box apres contract " << b << endl;
 		if (b.is_empty())	continue;
 	
 		

@@ -26,12 +26,15 @@ void CtcFixPoint::contract(IntervalVector& box) {
 	IntervalVector old_box(box);
 	BitSet flags(BitSet::empty(Ctc::NB_OUTPUT_FLAGS));
 	BitSet impact(BitSet::all(nb_var)); // always set to "all" for the moment (to be improved later)
-
+        bool csideeffects = ctc.side_effects();
 	do {
 		old_box=box;
-
+                if (side_effects()) 
+		  ctc.enable_side_effects();
+		else
+		  ctc.disable_side_effects();
 		ctc.contract(box,impact,flags);
-
+                if (csideeffects) ctc.enable_side_effects();
 		if (box.is_empty()) {
 			set_flag(FIXPOINT);
 			return;

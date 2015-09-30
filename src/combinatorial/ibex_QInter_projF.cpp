@@ -1,7 +1,7 @@
 //============================================================================
 //                                  I B E X                                   
 // File        : Approximate Q-intersection, using Luc Jaulin's algorithm
-// Author      : Clement Carbonnel
+// Author      : Clement Carbonnel + Bertrand Neveu
 // Copyright   : Ecole des Mines de Nantes (France)
 // License     : See the LICENSE file
 // Created     : Jul 24, 2013
@@ -11,84 +11,167 @@
 #include "ibex_QInter.h"
 #include <algorithm>
 
+
 using namespace std;
 
 #define PROJ_LEFT_BOUND 0
 #define PROJ_RIGHT_BOUND 1
 
-bool paircomp (const pair<double,int>& i, const pair<double,int>& j) { return (i.first<j.first || (i.first==j.first && i.second < j.second)); }
+bool paircomp (const pair<double,int>& i, const pair<double,int>& j) { return (i.first<j.first); }
 
 namespace ibex {
 
-IntervalVector qinter_projf(const Array<IntervalVector>& _boxes, int q) {
-	
+  /* return a box containing the q-intersection (incomplete algorithm) of the non empty boxes in _boxes.
+The indices of active boxes are _boxes is given by the list "points"), 
+p is the number of non empty boxes  : updated during the computation 
+ resul indicates if a box became empty : useful for optimizing the updating of active boxes.
+n0 the first dimension to be projected // TO DO : a boolean per dimension
+points : the list of the indices of the active measurements (not updated inside the procedure)
+
+   */
+
+  IntervalVector qinter_projf( IntervalMatrix& _boxes, int q, int & qmax, int & p, list<int>* points, int n0) {
+  	
 	assert(q>0);
-	assert(_boxes.size()>0);
-	int n = _boxes[0].size();
+
+	unsigned int n = _boxes.nb_cols();
 	
-	/* Remove the empty boxes from the list */
-	
-	int p=0;	
-	for (int i=0; i<_boxes.size(); i++) {
-		if (!_boxes[i].is_empty()) p++;
-	}
-	
-	if (p==0) return IntervalVector::empty(n);
-	
-	Array<IntervalVector> boxes(p);
-	int j=0;
-	for (int i=0; i<_boxes.size(); i++) {
-		if (!_boxes[i].is_empty()) boxes.set_ref(j++,_boxes[i]);
-	}
-	
-	/* Main loop : solve the q-inter independently on each dimension, and return the cartesian product */
-	
+
+	/* Main loop : solve the q-inter  on each dimension, and return the Cartesian product */
+        /* improvement BN : remove the box not in the q-inter of a projection 
+	 */	
 	double lb0,rb0;
 	IntervalVector res(n);
-	pair<double,int>  *x = new pair<double,int>[2*p];
-	int c;
-	for (int i=0; i<n; i++) {
+
+	int pi=p;
+	//	cout << " p" << p << endl;
+	//	cout << " psize " << points->size() << endl;
+	Array<IntervalVector> boxes(pi);
+	  
+	int* refbox = new int[pi];
+
+
+
+	/* Put the references of the non empty boxes in the array boxes: some active boxes may be empty
+          in the case of a call through cid */
+
+       
+
+	int k1=0;
+
+	for (list<int>::iterator it = points->begin() ; it != points->end(); it++)
+	  {if (! (_boxes[*it].is_empty()))
+	      { 
+		boxes.set_ref(k1,_boxes[*it]);refbox[k1]=*it;k1++;}
+	  }
+
+	
+	//	cout << " k1 " << k1 << endl;
+
+	int p1=p;
+
+	for (int i=n0; i<n; i++) {
+	  // p : the number of non empty boxes at the beginning of the iteration used for the dimension of array x
+	  // p1 : the current number of non empty boxes : may be updated by being decreased inside the iteration
+	  //	  cout << " iter " << i << " p "<< p << "  p1 "  << p1 << endl;
+	  int qi=0;
+	  p=p1;
+	  
+
+	  int c;
 		
 		/* Solve the q-inter for dimension i */
-		
-		for (int j=0; j<p; j++) {
-			x[2*j]   = make_pair(boxes[j][i].lb(),PROJ_LEFT_BOUND);
-			x[2*j+1] = make_pair(boxes[j][i].ub(),PROJ_RIGHT_BOUND);
-		}
-		
-		sort(x,x+2*p,paircomp);
-		
+	  pair<double,int>  *x = new pair<double,int>[2*p];
+
+	  int j0=0;
+	  for (int j=0; j<pi; j++) {
+	    //	    cout << " j " << j  << " j0 " << j0 << endl ; 
+	    if (!(boxes[j].is_empty()))
+	      {
+		//	cout << " box " << i << " "  << j  << " " << boxes[j][i]  <<  " j0 " << j0 << endl;
+		x[2*j0]   = make_pair(boxes[j][i].lb(),2*j);
+
+		x[2*j0+1] = make_pair(boxes[j][i].ub(),2*j+1);
+
+		j0++;
+	      }
+	  }
+
+
+	  sort(x,x+2*p,paircomp);
+
 		/* Find the left bound */
-		c=0;
-		lb0 = POS_INFINITY;
-		for (int k=0; k<2*p; k++) {
-			(x[k].second == PROJ_LEFT_BOUND) ? c++ : c--;
-			if (c==q) {
-				lb0 = x[k].first;
-				break;
-			}
+	  c=0;
+	  lb0 = POS_INFINITY;
+	  
+	  int k0=0;
+	  for (int k=0; k<2*p; k++) {
+	    if ((x[k].second %2) ==0) 
+	      c++;
+	    else {c--; 
+	      _boxes[refbox[(x[k].second)/2]].set_empty();p1--;  
+	      //	      cout << " vide gauche " <<  (x[k].second)/2   << " "  << refbox[(x[k].second)/2] << endl; 
+	      }
+	    if (c==q) {
+	      lb0 = x[k].first; k0=k;
+	      break;
+	    }
+	  }
+	  
+	  if (lb0 == POS_INFINITY) {
+	    res.set_empty();
+	    delete [] x;
+	    break;
 		}
-		
-		if (lb0 == POS_INFINITY) {
-			res.set_empty();
-			break;
-		}
-		
+	  int k1=0;
 		/* Find the right bound */
-		c=0;
-		for (int k=2*p-1; k>=0; k--) {
-			(x[k].second == PROJ_RIGHT_BOUND) ? c++ : c--;
-			if (c==q) {
-				rb0 = x[k].first;
-				break;
-			}
+	  c=0;
+	  for (int k=2*p-1; k>=0; k--) {
+	    if ((x[k].second %2)==1)
+	      c++ ;
+	    else
+	      {c--;
+		_boxes[refbox[(x[k].second)/2]].set_empty(); p1--; 
+		//		cout << " vide droit " <<  (x[k].second)/2   <<  "   " << refbox[(x[k].second)/2] << endl;
 		}
-		
-		res[i] = Interval(lb0,rb0);
+	    if (c==q) {
+	      rb0 = x[k].first; k1=k;
+	      break;
+	    }
+	  }
+	  c=q;
+	  qi=q;  // the maximum reached in the projection i 
+	  // the boxes without q support are set empty
+
+	  double yy=boxes[(x[k0].second)/2][i].lb();
+
+  	  for (int k=k0+1; k<k1-1; k++) {
+
+	    if ((x[k].second %2) ==0)
+	      {  c++; 
+		if (qi < c) qi=c; // updating the maximum
+	      }
+	    else {
+	      c--; 
+	      if (c==(q-1)) 
+		{ yy= x[k].first;  // debut zone <q
+		  
+		}
+	      // the boxes entirely in a zone < q  are set empty.
+	      else if ((c<(q-1) && boxes[(x[k].second)/2][i].lb() >yy)){  
+		_boxes[refbox[(x[k].second)/2]].set_empty(); p1--;}
+	    
+	    }
+	  }
+
+	  if (qmax > qi) qmax=qi;  // the minimum in all projections
+	  res[i] = Interval(lb0,rb0);
+	  delete [] x;
 	}
-	
-	delete [] x;
+        p=p1;
+	delete [] refbox;
 	return res;
-}
+	
+  }
 
 } // end namespace ibex

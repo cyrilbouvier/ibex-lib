@@ -3,6 +3,7 @@
 #include "ibex_CtcCompo.h"
 #include "ibex_CtcQInter.h"
 #include "ibex_CtcFixPoint.h"
+#include "ibex_EmptyBoxException.h"
 #include "ibex_Array.h"
 
 #include <iostream>
@@ -80,7 +81,7 @@ int main() {
 	IntervalVector box=initbox;
 
 	// Create the q-intersection of the N contractors
-	CtcQInter q(array,5);
+	CtcQInter q(2,array,5,QINTERFULL);
 
 	// Perform a first contraction
 	box=initbox;

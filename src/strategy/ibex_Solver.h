@@ -14,12 +14,20 @@
 #include "ibex_Ctc.h"
 #include "ibex_Pdc.h"
 #include "ibex_Bsc.h"
+#include "ibex_Cell.h"
 #include "ibex_CellBuffer.h"
+#include "ibex_CtcQInter.h"
 #include "ibex_SubPaving.h"
 #include "ibex_Timer.h"
 #include "ibex_Exception.h"
 
+
 #include <vector>
+#include <set>
+#include <algorithm>
+#include <utility>
+
+using namespace std;
 
 namespace ibex {
 
@@ -28,7 +36,7 @@ namespace ibex {
  *
  * \brief  Solver.
  *
- * This class implements an branch and prune algorithm that finds all the solutions of a well constrained systems of equations (the system may contain additional inequalities).
+ * This class implements a branch and prune algorithm that finds all the solutions of a well constrained systems of equations (the system may contain additional inequalities).
  */
 
 
@@ -116,13 +124,23 @@ public:
 
 protected :
 
-	void time_limit_check();
 
+        std::pair<Cell*,Cell*> 	bisect(Cell& c, IntervalVector& box1, IntervalVector& box2);
+	virtual Cell* root_cell(const IntervalVector& box);
+
+
+	virtual void precontract(Cell& c){;};
+	virtual void postcontract(Cell& c){;};
+	virtual void prebisect(Cell& c){;};
+
+	void time_limit_check();
+	virtual bool solution_test(Cell& c) {return true;};
 	void new_sol(std::vector<IntervalVector> & sols, IntervalVector & box);
 
 	BitSet impact;
 
 };
+
 
 } // end namespace ibex
 #endif // __IBEX_SOLVER_H__

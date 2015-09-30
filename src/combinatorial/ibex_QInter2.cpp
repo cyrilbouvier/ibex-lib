@@ -112,29 +112,30 @@ void propagate_no_ub(const Array<IntervalVector>& boxes, IntStack ***dirboxes, i
 /* 
  * Improved q-intersection algorithm.
  */
-IntervalVector qinter2(const Array<IntervalVector>& _boxes, int q) {
-	
+
+IntervalVector qinter2(const Array<IntervalVector>& _boxes, int q)
+  { return qintermeth( _boxes,q,QINTERFULL);
+  }
+  
+  //IntervalVector qinter2(const Array<IntervalVector>& _boxes, int q) {
+  IntervalVector qinter2(IntervalMatrix& _boxes, int q,  int p,list<int>* points ) {
 
 #ifndef _WIN32
 	assert(q>0);
-	assert(_boxes.size()>0);
+
 	int n = _boxes[0].size();
 	
-	/* Remove the empty boxes from the list */
 	
-	int p=0;
-	for (int i=0; i<_boxes.size(); i++) { 
-		if (!_boxes[i].is_empty()) p++;
-	}
-	
-	if (p==0) return IntervalVector::empty(n);
-	
+	//  Put the references of the non empty boxes in the array boxes: some active boxes may be empty
+        //  in the case of a call through cid
+
+
 	Array<IntervalVector> boxes(p);
 	int j=0;
-	for (int i=0; i<_boxes.size(); i++) {
-		if (!_boxes[i].is_empty()) boxes.set_ref(j++,_boxes[i]);
+	for (list<int>::iterator it = points->begin() ; it != points->end(); it++) {
+	  if (!_boxes[*it].is_empty()) boxes.set_ref(j++,_boxes[*it]);
 	}
-	
+
 	/* Create the sets of available boxes for each direction */
 	
 	IntStack ***dirboxes = (IntStack ***)malloc(n*sizeof(IntStack **));

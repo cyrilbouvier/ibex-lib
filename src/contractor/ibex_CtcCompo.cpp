@@ -201,18 +201,22 @@ void CtcCompo::contract(IntervalVector& box) {
 	BitSet impact(BitSet::all(nb_var)); // always set to "all" for the moment (to be improved later)
 
 	for (int i=0; i<list.size(); i++) {
-		if (inactive) {
-			flags.clear();
-			list[i].contract(box,impact,flags);
-			if (!flags[INACTIVE]) inactive=false;
-		} else {
-			list[i].contract(box);
-		}
-
-		if (box.is_empty()) {
+	  bool iside_effects= list[i].side_effects();
+	  if (side_effects()) list[i].enable_side_effects();
+	  else list[i].disable_side_effects();
+	  if (inactive) {
+	    flags.clear();
+	    list[i].contract(box,impact,flags);
+	    if (!flags[INACTIVE]) inactive=false;
+	  } else {
+	    list[i].contract(box);
+	  }
+	  if (iside_effects)  list[i].enable_side_effects();
+ 
+	  if (box.is_empty()) {
 			set_flag(FIXPOINT);
 			return;
-		}
+	  }
 	}
 
 	if (inactive) set_flag(INACTIVE);

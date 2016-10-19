@@ -17,7 +17,7 @@ install:
   - cmd: uname -a
   - cmd: pacman --noconfirm -S mingw32/mingw-w64-i686-cppunit
   - cmd: find C:\mingw-w64 -name "*cppunit*"
-  - cmd: find C:\msys -name "*cppunit*"
+  - cmd: find C:\msys64 -name "*cppunit*"
   - cmd: python -x %cd%\waf configure --interval-lib=filib
   - cmd: python -x %cd%\waf build install clean
 

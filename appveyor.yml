@@ -15,7 +15,7 @@ install:
   - cmd: set PATH=%MINGW-W64_BASE%\mingw32\bin;C:\msys64\usr\bin;%PATH%
   - cmd: echo %Platform%
   - cmd: uname -a
-  - cmd: pacman -Ss cppunit
+  - cmd: pacman -S mingw32/mingw-w64-i686-cppunit
   - cmd: python -x %cd%\waf configure --interval-lib=filib
   - cmd: python -x %cd%\waf build install clean
 

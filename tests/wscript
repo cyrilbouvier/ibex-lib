@@ -122,32 +122,25 @@ def utest (tst):
 			tst.fatal ("Could not find ibex configuration via pkg-config.\n"
 								 "Did you run './waf install' first ?")
 
-		print "AAA"
 		# reset env
 		tst.env.env = env_bak
 
-		print "AAB"
 		# always run the tests
 		tst.options.all_tests = True
 
-		print "AAC"
 		# define SRCDIR_TESTS
 		defines = "SRCDIR_TESTS=\"%s\"" % tst.path.abspath()
 
-		print "AAD"
 		# Use own function for reporting test results
 		tst.add_post_fun (utest_format_output)
 
-		print "AAE"
 		# split in two: the real tests (starting with "Test") and the utils files
 		def split_fun (f):
 			return os.path.basename (f).startswith("Test")
 
-		print "AAF"
 		base_src = [ f for f in tst.env.TEST_SRC if not split_fun (f) ]
 		test_src = [ f for f in tst.env.TEST_SRC if split_fun (f) ]
 
-		print "AAG"
 		tst (features = "cxx", source = base_src, target="utest_base",
 				use=["TESTS", "CPPUNIT"], defines = defines)
 
@@ -172,6 +165,7 @@ def utest (tst):
 			kwargs["source"] = f
 			kwargs["target"] = "utest_" + name
 			tst.program (**kwargs)
+		print "AAFFF"
 
 	else:
 		tst.fatal ("Cannot run the tests without cppunit (not found at configure)")

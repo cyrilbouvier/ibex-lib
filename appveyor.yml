@@ -23,7 +23,7 @@ build_script:
   - cmd: python -x %cd%\waf build install clean
 
 test_script:
-  - cmd: python -x %cd%\waf utest
+  - cmd: python -x %cd%\waf -vvv utest
 
 #on_failure:
 on_finish:

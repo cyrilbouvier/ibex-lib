@@ -13,13 +13,15 @@ install:
   - cmd: echo Running build
   - cmd: set MINGW-W64_BASE=C:\mingw-w64\i686-5.3.0-posix-dwarf-rt_v4-rev0
   - cmd: set PATH=%MINGW-W64_BASE%\mingw32\bin;C:\msys64\usr\bin;%PATH%
-  - cmd: set CPATH=C:\msys64/mingw32/include/;%CPATH%
+  - cmd: set CPATH=%CPATH%;C:\msys64/mingw32/include/
+  - cmd: set LIBRARY_PATH=%LIBRARY_PATH%;C:\msys64/mingw32/lib/
   - cmd: ls -l C:\msys64/mingw32/include/
+  - cmd: ls -l C:\msys64/mingw32/lib
   - cmd: echo %Platform%
   - cmd: uname -a
   - cmd: pacman --noconfirm -S mingw32/mingw-w64-i686-cppunit
-  - cmd: find C:\mingw-w64 -name "*cppunit*"
-  - cmd: find C:\msys64 -name "*cppunit*"
+  - cmd: ls -l C:\msys64/mingw32/include/
+  - cmd: ls -l C:\msys64/mingw32/lib
   - cmd: python -x %cd%\waf configure --interval-lib=filib
   - cmd: python -x %cd%\waf build install clean
 

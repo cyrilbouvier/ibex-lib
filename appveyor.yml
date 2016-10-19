@@ -22,9 +22,9 @@ install:
   - cmd: echo %LIBRARY_PATH%
 
 build_script:
-  - cmd: python -x %cd%\waf configure --interval-lib=filib
-  - cmd: python -x %cd%\waf -vvv build install clean
-  - cmd: cat __build__/c4che/_cache.py
+  - cmd: python -x %cd%\waf configure --interval-lib=filib --prefix=%HOMEDRIVE%%HOMEPATH%
+  - cmd: python -x %cd%\waf build install clean
+  #- cmd: cat __build__/c4che/_cache.py
 
 test_script:
   - cmd: python -x %cd%\waf -vvv utest

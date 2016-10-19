@@ -10,7 +10,7 @@ platform:
   - x64
 
 install:
-  - cmd: echo Running build
+  - cmd: echo Running Install
   - cmd: echo %Platform%
   - cmd: set MINGW-W64_BASE=C:\mingw-w64\i686-5.3.0-posix-dwarf-rt_v4-rev0
   - cmd: set PATH=%MINGW-W64_BASE%\mingw32\bin;C:\msys64\usr\bin;%PATH%
@@ -18,12 +18,16 @@ install:
   - cmd: pacman --noconfirm -S mingw32/mingw-w64-i686-cppunit
   - cmd: set CPATH=%CPATH%;C:\msys64/mingw32/include/
   - cmd: set LIBRARY_PATH=%LIBRARY_PATH%;C:\msys64/mingw32/lib/
-  - cmd: python -x %cd%\waf configure --interval-lib=filib
-  - cmd: python -x %cd%\waf build install clean
 
 build_script:
-  - cmd: echo Running install
+  - cmd: echo Running Build
+  - cmd: python -x %cd%\waf configure --interval-lib=filib
+  - cmd: python -x %cd%\waf build install clean
   - cmd: python -x %cd%\waf utest
 
+test_script:
+  - cmd: echo Running Test
+
+#on_failure:
 on_finish:
   - cmd: cat C:\projects\ibex-lib\__build__\config.log

@@ -17,6 +17,8 @@ install:
   - cmd: pacman --noconfirm -S mingw32/mingw-w64-i686-cppunit
   - cmd: set CPATH=%CPATH%;C:\msys64/mingw32/include/
   - cmd: set LIBRARY_PATH=%LIBRARY_PATH%;C:\msys64/mingw32/lib/
+  - cmd: echo %CPATH%
+  - cmd: echo %LIBRARY_PATH%
 
 build_script:
   - cmd: python -x %cd%\waf configure --interval-lib=filib

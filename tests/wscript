@@ -156,7 +156,6 @@ def utest (tst):
 			for path in lib_for_rpath: 
 				Logs.warn ("You should add '%s' to your LD_LIBRARY_PATH" % path)
 
-		print "AAH"
 		for f in test_src:
 			dirname, basename = os.path.split (f)
 			name = basename[4:-4] # Remove "Test" at the beginning, ".cpp" at the end
@@ -165,7 +164,6 @@ def utest (tst):
 			kwargs["source"] = f
 			kwargs["target"] = "utest_" + name
 			tst.program (**kwargs)
-		print "AAFFF"
 
 	else:
 		tst.fatal ("Cannot run the tests without cppunit (not found at configure)")

@@ -21,11 +21,10 @@ install:
 
 build_script:
   - cmd: python -x %cd%\waf configure --interval-lib=filib --prefix=%PREFIX%
-  - cmd: python -x %cd%\waf -v build install clean
-  - cmd: cat __build__/c4che/_cache.py
+  - cmd: python -x %cd%\waf build install clean
 
 test_script:
-  - cmd: python -x %cd%\waf -vv -kk utest
+  - cmd: python -x %cd%\waf -vvv -kk utest
 
 #on_failure:
 on_finish:

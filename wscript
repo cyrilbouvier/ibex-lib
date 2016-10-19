@@ -75,6 +75,10 @@ def configure (conf):
 	# For information
 	conf.msg ("sys.platform", sys.platform)
 
+	import platform
+	conf.msg ("platform.architecture", platform.architecture())
+	conf.msg ("maxsize", sys.maxsize)
+
 	# Set LIBDIR and INCDIR, set them in env and put them in *_IBEX_DEPS
 	conf.env.LIBDIR = os.path.join (conf.env.PREFIX, "lib")
 	conf.env.append_unique ("LIBPATH_IBEX_DEPS", conf.env.LIBDIR)

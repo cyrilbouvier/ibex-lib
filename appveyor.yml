@@ -3,7 +3,7 @@ image: Visual Studio 2015
 
 branches:
   only:
-  - Gaol4
+    - appveyor
 
 platform:
   - x86
@@ -13,7 +13,9 @@ install:
   - cmd: echo Running build
   - cmd: set MINGW-W64_BASE=C:\mingw-w64\i686-5.3.0-posix-dwarf-rt_v4-rev0
   - cmd: set PATH=%MINGW-W64_BASE%\mingw32\bin;C:\msys64\usr\bin;%PATH%
+  - cmd: echo %Platform%
   - cmd: uname -a
+  - cmd: pacman -S mingw-w64-cppunit
   - cmd: python -x %cd%\waf configure --interval-lib=filib
   - cmd: python -x %cd%\waf build install clean
 

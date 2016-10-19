@@ -15,14 +15,16 @@ install:
   - cmd: set PATH=%MINGW-W64_BASE%\mingw32\bin;C:\msys64\usr\bin;%PATH%
   - cmd: uname -a
   - cmd: pacman --noconfirm -S mingw32/mingw-w64-i686-cppunit
-  - cmd: set CPATH=%CPATH%;C:\msys64/mingw32/include/
-  - cmd: set LIBRARY_PATH=%LIBRARY_PATH%;C:\msys64/mingw32/lib/
+  - cmd: set CPATH=%CPATH%;C:\msys64\mingw32\include
+  - cmd: set LIBRARY_PATH=%LIBRARY_PATH%;C:\msys64\mingw32\lib
+  - cmd: echo %PATH%
   - cmd: echo %CPATH%
   - cmd: echo %LIBRARY_PATH%
 
 build_script:
   - cmd: python -x %cd%\waf configure --interval-lib=filib
-  - cmd: python -x %cd%\waf build install clean
+  - cmd: python -x %cd%\waf -vvv build install clean
+  - cmd: cat __build__/c4che/_cache.py
 
 test_script:
   - cmd: python -x %cd%\waf -vvv utest

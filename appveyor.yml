@@ -25,10 +25,8 @@ build_script:
 
 test_script:
   - cmd: set PKG_CONFIG_PATH=%PREFIX%\share\pkgconfig
-  #- cmd: set PATH=%PATH%;C:\\projects\\ibex-lib\\__build__\\tests
   - cmd: set CPPU=C:\msys64\mingw32\lib;C:\msys64\mingw32\bin
   - cmd: set PATH=%PATH%;%CPPU%
-  #- cmd: set PATH=%PATH%;%PREFIX%\lib;%PREFIX%\lib\ibex;%PREFIX%\lib\ibex\3rd
   - cmd: python -x %cd%\waf utest
 
 on_failure:

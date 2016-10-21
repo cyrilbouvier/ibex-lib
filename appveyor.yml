@@ -32,4 +32,10 @@ test_script:
   - cmd: python -x %cd%\waf utest
 
 on_failure:
+  - cmd: ls -l C:\projects\ibex-lib\__build__\tests
+  - cmd: C:\projects\ibex-lib\__build__\tests\utest_Arith && exit 0
+  - cmd: tests\utest_Arith && exit 0
+  - cmd: sh -c C:\projects\ibex-lib\__build__\tests\utest_Arith && exit 0
+  - cmd: sh -c tests\utest_Arith && exit 0
+  - cmd: sh -c tests/utest_Arith && exit 0
   - cmd: cat C:\projects\ibex-lib\__build__\config.log

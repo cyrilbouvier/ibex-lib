@@ -16,18 +16,18 @@ def utest_format_output (tst):
 	def format_out (stream, name):
 		s = name + ":" + os.linesep
 		if isinstance (stream, unicode):
-			lines = [ l in stream.decode('utf-8').splitlines(True) ]
+			lines = stream.decode('utf-8').splitlines(True)
 		else:
-			lines = [ l in stream.splitlines(True) ] 
+			lines = stream.splitlines(True)
 		for l in lines:
 			s += "  " + l
 		return s
 
 	def parse_output (stream):
 		if isinstance (stream, unicode):
-			lines = [ l in stream.decode('utf-8').splitlines(True) ]
+			lines = stream.decode('utf-8').splitlines(True)
 		else:
-			lines = [ l in stream.splitlines(True) ] 
+			lines = stream.splitlines(True)
 		for l in lines:
 			if l.startswith ("Run"):
 				data = l.split()

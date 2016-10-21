@@ -30,7 +30,6 @@ test_script:
   - cmd: python -x %cd%\waf utest
 
 on_failure:
-  - cmd: C:\\projects\\ibex-lib\\__build__\\tests\\utest_InnerArith || exit 0
   - cmd: cat C:\projects\ibex-lib\__build__\config.log
   - cmd: cat C:\projects\ibex-lib\__build__\utest_config.log
   - cmd: cat C:\projects\ibex-lib\__build__\utest_run.log

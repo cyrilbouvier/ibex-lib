@@ -20,7 +20,6 @@ def utest_format_output (tst):
 		else:
 			for f in [ 'ascii', 'cp1251', 'cp1252', 'latin1', 'utf-8' ] :
 				try:
-					print f
 					r = s.decode(f)
 					break
 				except UnicodeDecodeError:

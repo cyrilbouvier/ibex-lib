@@ -2,6 +2,7 @@
 # encoding: utf-8
 
 import os
+import unicodedata
 from waflib import Logs, Errors, Utils
 from waflib.Tools import waf_unit_test
 import ibexutils

@@ -18,7 +18,7 @@ def utest_format_output (tst):
 		if isinstance (s, unicode):
 			r = s
 		else:
-			for f in [ 'utf-8', 'latin1', 'ascii', 'cp1251', 'cp1252' ] :
+			for f in [ 'ascii', 'cp1251', 'cp1252', 'latin1', 'utf-8' ] :
 				try:
 					print f
 					r = s.decode(f)

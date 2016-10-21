@@ -25,13 +25,12 @@ build_script:
 
 test_script:
   - cmd: set PKG_CONFIG_PATH=%PREFIX%\share\pkgconfig
-#  - cmd: set CPPU=C:\msys64\mingw32\lib;C:\msys64\mingw32\bin
-  - cmd: set CPPU=C:\msys64\mingw32\bin
-  - cmd: set PATH=%PATH%;%CPPU%
+  # We need to add the path to libcppunit in PATH
+  - cmd: set PATH=%PATH%;C:\msys64\mingw32\bin
   - cmd: python -x %cd%\waf utest
 
 on_failure:
-  - cmd: C:\\projects\\ibex-lib\\__build__\\tests\\utest_Arith || exit 0
+  - cmd: C:\\projects\\ibex-lib\\__build__\\tests\\utest_InnerArith || exit 0
   - cmd: cat C:\projects\ibex-lib\__build__\config.log
   - cmd: cat C:\projects\ibex-lib\__build__\utest_config.log
   - cmd: cat C:\projects\ibex-lib\__build__\utest_run.log

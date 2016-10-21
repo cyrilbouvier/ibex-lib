@@ -2,7 +2,7 @@
 # encoding: utf-8
 
 import os
-from waflib import Logs, Errors
+from waflib import Logs, Errors, Utils
 from waflib.Tools import waf_unit_test
 
 # function called after the tests are run for pretty printing the results
@@ -96,9 +96,15 @@ def configure (conf):
 
   # if fmemopen is not available, use implementation from tests/3rd/fmemopen
 	if not conf.env.HAVE_FMEMOPEN:
-		conf.env.append_unique ("TEST_SRC", "3rd/fmemopen/fmemopen.c")
-		conf.env.append_unique ("INCLUDES_TESTS",
-				os.path.join (conf.path.abspath (), "3rd", "fmemopen"))
+		if not Utils.is_win32:
+			conf.env.append_unique ("TEST_SRC", "3rd/fmemopen/fmemopen.c")
+			conf.env.append_unique ("INCLUDES_TESTS",
+					os.path.join (conf.path.abspath (), "3rd", "fmemopen"))
+		else:
+			# XXX The workaround does not work on windows. Missing header sys/mman.h
+			# So, for now, we remove the two test files that need fmemopen
+			conf.env.TEST_SRC.remove("TestFunction.cpp")
+			conf.env.TEST_SRC.remove("TestParser.cpp")
 
 ######################
 ####### utest ########

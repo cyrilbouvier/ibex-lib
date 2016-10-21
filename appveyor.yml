@@ -32,8 +32,7 @@ test_script:
   - cmd: python -x %cd%\waf utest
 
 on_failure:
-  - cmd: find C:\msys64 -name "*unit*"
-  - cmd: find C:\mingw-w64 -name "*unit*"
+  - cmd: find C:\msys64 -name "*cppunit*"
   - cmd: cat C:\msys64/mingw32/lib/pkgconfig/cppunit.pc
   - cmd: sh -c C:\\projects\\ibex-lib\\__build__\\tests\\utest_Arith || exit 0
   - cmd: set PATH=%PATH%;C:\\projects\\ibex-lib\\__build__\\tests

@@ -219,7 +219,8 @@ def build (bld):
 	# Generate ibex.pc, the pkg-config file
 	bld (features = "subst", source = "ibex.pc.in", target = "ibex.pc",
 				install_path = bld.env.PKGDIR,
-				INCDIR = bld.path_pc_prefix (bld.env.INCDIR + "\\"),
+				PREFIX = ibexutils.escape_backslash_on_win32 (bld.env.PREFIX),
+				INCDIR = bld.path_pc_prefix (bld.env.INCDIR),
 				LIBDIR = bld.path_pc_prefix (bld.env.LIBDIR),
 				INCLUDES = " ".join(["-I" + bld.path_pc (i)
 																					for i in bld.env.INCLUDES_IBEX_DEPS]),

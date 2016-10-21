@@ -32,7 +32,7 @@ test_script:
   - cmd: python -x %cd%\waf utest
 
 on_failure:
-  - cmd: ldd C:\\projects\\ibex-lib\\__build__\\tests\\utest_Arith || exit 0
+  #- cmd: ldd C:\\projects\\ibex-lib\\__build__\\tests\\utest_Arith || exit 0
   - cmd: sh -c C:\\projects\\ibex-lib\\__build__\\tests\\utest_Arith || exit 0
   - cmd: set PATH=%PATH%;C:\\projects\\ibex-lib\\__build__\\tests
   - cmd: sh -c C:\\projects\\ibex-lib\\__build__\\tests\\utest_Arith || exit 0

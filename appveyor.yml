@@ -24,13 +24,8 @@ build_script:
   - cmd: python -x %cd%\waf build install clean
 
 test_script:
-  - cmd: cat C:\Users\appveyor\share\pkgconfig\ibex.pc
   - cmd: set PKG_CONFIG_PATH=%PREFIX%\share\pkgconfig
-  - cmd: pkg-config --cflags ibex
-  - cmd: pkg-config --libs ibex
-  #- cmd: pacman --noconfirm -S patch
-  #- cmd: cd .waf-1.9.1-584ef1b5b82e22046b7c9d5797d92393/waflib/
-  #- cmd: patch -p0 < ../../waf.patch 
+  - cmd: find C:\mingw-w64 -name mman.h
   - cmd: python -x %cd%\waf utest
 
 on_failure:

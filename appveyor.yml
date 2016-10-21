@@ -24,6 +24,7 @@ build_script:
   - cmd: python -x %cd%\waf build install clean
 
 test_script:
+  - cmd: cat C:\Users\appveyor\share\pkgconfig\ibex.pc
   - cmd: python -x %cd%\waf -vvv -kk utest
 
 #on_failure:

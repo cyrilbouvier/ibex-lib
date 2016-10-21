@@ -26,7 +26,7 @@ build_script:
 test_script:
   - cmd: set PKG_CONFIG_PATH=%PREFIX%\share\pkgconfig
 #  - cmd: set CPPU=C:\msys64\mingw32\lib;C:\msys64\mingw32\bin
-  - cmd: set CPPU=C:\msys64\mingw32\lib
+  - cmd: set CPPU=C:\msys64\mingw32\bin
   - cmd: set PATH=%PATH%;%CPPU%
   - cmd: python -x %cd%\waf utest
 

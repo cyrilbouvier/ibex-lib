@@ -2,7 +2,6 @@
 # encoding: utf-8
 
 import os
-import unicodedata
 from waflib import Logs, Errors, Utils
 from waflib.Tools import waf_unit_test
 import ibexutils
@@ -16,14 +15,20 @@ def utest_format_output (tst):
 
 	def format_out (stream, name):
 		s = name + ":" + os.linesep
-		for l in stream.decode('utf-8').splitlines(True):
+		if isinstance(s, str):
+			lines = [ l in stream.splitlines(True) ] 
+		elif isinstance(s, unicode):
+			lines = [ l in stream.decode('utf-8').splitlines(True) ]
+		for l in lines:
 			s += "  " + l
 		return s
 
 	def parse_output (stream):
-		for i, c in enumerate(stream):
-		    print i, '%04x' % ord(c), unicodedata.category(c), unicodedata.name(c)
-		for l in stream.decode('utf-8').splitlines(True):
+		if isinstance(s, str):
+			lines = [ l in stream.splitlines(True) ] 
+		elif isinstance(s, unicode):
+			lines = [ l in stream.decode('utf-8').splitlines(True) ]
+		for l in lines:
 			if l.startswith ("Run"):
 				data = l.split()
 				return (int(data[1]), int(data[3]) + int(data[5]))

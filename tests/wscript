@@ -4,6 +4,7 @@
 import os
 from waflib import Logs, Errors, Utils
 from waflib.Tools import waf_unit_test
+import ibexutils
 
 # function called after the tests are run for pretty printing the results
 def utest_format_output (tst):
@@ -135,7 +136,8 @@ def utest (tst):
 		tst.options.all_tests = True
 
 		# define SRCDIR_TESTS
-		defines = "SRCDIR_TESTS=\"%s\"" % tst.path.abspath()
+		srcdir = ibexutils.escape_backslash_on_win32 (tst.path.abspath ())
+		defines = "SRCDIR_TESTS=\"%s\"" % srcdir
 
 		# Use own function for reporting test results
 		tst.add_post_fun (utest_format_output)

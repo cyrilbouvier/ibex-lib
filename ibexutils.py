@@ -71,6 +71,23 @@ def convert_path_win2msys (path):
 	return "/%s%s" % (drv[0], path.replace("\\", "/"))
 
 @conf
+def path_pc_prefix (conf, path):
+	path = path.replace (conf.env.PREFIX, "${prefix}")
+	if Utils.is_win32:
+		return path.replace ("\\", "\\\\")
+	else:
+		return path
+
+@conf
+def path_pc (conf, path):
+	path = path.replace (conf.env.INCDIR, "${includedir}")
+	path = path.replace (conf.env.LIBDIR, "${libdir}")
+	if Utils.is_win32:
+		return path.replace ("\\", "\\\\")
+	else:
+		return path
+
+@conf
 def configure_3rd_party_with_autotools (conf, archive_name,
 			without_configure=False, without_make_install=False, conf_args = ""):
 	name = archive_name_without_suffix (archive_name)

@@ -25,26 +25,13 @@ build_script:
 
 test_script:
   - cmd: set PKG_CONFIG_PATH=%PREFIX%\share\pkgconfig
-  - cmd: set PATH=%PATH%;C:\\projects\\ibex-lib\\__build__\\tests
-#  - cmd: set LIBRARY_PATH=%LIBRARY_PATH%;C:\\projects\\ibex-lib\\__build__\\tests
-#  - cmd: set LD_LIBRARY_PATH=%LD_LIBRARY_PATH%;C:\\projects\\ibex-lib\\__build__\\tests
+  #- cmd: set PATH=%PATH%;C:\\projects\\ibex-lib\\__build__\\tests
   - cmd: set CPPU=C:\msys64\mingw32\lib;C:\msys64\mingw32\bin
   - cmd: set PATH=%PATH%;%CPPU%
-#  - cmd: set LIBRARY_PATH=%LIBRARY_PATH%;%CPPU%
-#  - cmd: set LD_LIBRARY_PATH=%LD_LIBRARY_PATH%;%CPPU%
-  - cmd: set PATH=%PATH%;%PREFIX%\lib;%PREFIX%\lib\ibex;%PREFIX%\lib\ibex\3rd
+  #- cmd: set PATH=%PATH%;%PREFIX%\lib;%PREFIX%\lib\ibex;%PREFIX%\lib\ibex\3rd
   - cmd: python -x %cd%\waf utest
 
 on_failure:
-  - cmd: cat C:\msys64/mingw32/lib/pkgconfig/cppunit.pc
-  - cmd: sh -c C:\\projects\\ibex-lib\\__build__\\tests\\utest_Arith || exit 0
-  - cmd: set PATH=%PATH%;C:\\projects\\ibex-lib\\__build__\\tests
-  - cmd: set LIBRARY_PATH=%LIBRARY_PATH%;C:\\projects\\ibex-lib\\__build__\\tests
-  - cmd: set LD_LIBRARY_PATH=%LD_LIBRARY_PATH%;C:\\projects\\ibex-lib\\__build__\\tests
-  - cmd: set CPPU=C:\msys64\mingw32\lib;C:\msys64\mingw32\bin
-  - cmd: set PATH=%PATH%;%CPPU%
-  - cmd: set LIBRARY_PATH=%LIBRARY_PATH%;%CPPU%
-  - cmd: set LD_LIBRARY_PATH=%LD_LIBRARY_PATH%;%CPPU%
   - cmd: C:\\projects\\ibex-lib\\__build__\\tests\\utest_Arith || exit 0
   - cmd: cat C:\projects\ibex-lib\__build__\config.log
   - cmd: cat C:\projects\ibex-lib\__build__\utest_config.log

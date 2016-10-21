@@ -105,7 +105,6 @@ def configure (conf):
 ######################
 def utest (tst):
 	if tst.env.HAVE_CPPUNIT:
-		print tst.env.INCLUDES_TESTS
 		env_bak = tst.env.env
 		tst.env.env = tst.env.env if tst.env.env else {}
 
@@ -130,7 +129,6 @@ def utest (tst):
 		tst.options.all_tests = True
 
 		# define SRCDIR_TESTS
-		print tst.env.INCLUDES_TESTS
 		defines = "SRCDIR_TESTS=\"%s\"" % tst.path.abspath()
 
 		# Use own function for reporting test results

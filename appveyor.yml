@@ -33,9 +33,9 @@ test_script:
 
 on_failure:
   - cmd: ls -l C:\projects\ibex-lib\__build__\tests
-  - cmd: C:\projects\ibex-lib\__build__\tests\utest_Arith || exit 0
-  - cmd: tests\utest_Arith || exit 0
   - cmd: sh -c C:\\projects\\ibex-lib\\__build__\\tests\\utest_Arith || exit 0
-  - cmd: sh -c tests\\utest_Arith || exit 0
-  - cmd: sh -c tests/utest_Arith || exit 0
-  - cmd: cat C:\projects\ibex-lib\__build__\config.log
+  - cmd: sh -c __build__\\tests\\utest_Arith || exit 0
+  - cmd: sh -c __build__/tests/utest_Arith || exit 0
+  - cmd: cat C:\projects\ibex-lib\__build__\config.log || exit 0
+  - cmd: cat C:\projects\ibex-lib\__build__\utest_config.log || exit 0
+  - cmd: cat C:\projects\ibex-lib\__build__\utest_run.log || exit 0

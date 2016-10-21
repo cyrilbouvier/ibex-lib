@@ -1,0 +1,18 @@
+--- Tools/c_config.py	2016-10-21 09:46:21.914371742 +0200
++++ Tools/c_config.py	2016-10-21 09:45:41.104212957 +0200
+@@ -65,6 +65,7 @@
+ 		st=x[:2]
+ 		ot=x[2:]
+ 		if st=='-I'or st=='/I':
++			print ot
+ 			if not ot:
+ 				ot=lst.pop(0)
+ 			appu('INCLUDES',ot)
+@@ -226,6 +227,7 @@
+ 	if not'okmsg'in kw:
+ 		kw['okmsg']='yes'
+ 	define_it()
++	print "##", ret, "##"
+ 	self.parse_flags(ret,kw['uselib_store'],kw.get('env',self.env),force_static=static,posix=kw.get('posix'))
+ 	return ret
+ @conf

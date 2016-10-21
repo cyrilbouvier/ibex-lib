@@ -25,7 +25,11 @@ build_script:
 
 test_script:
   - cmd: set PKG_CONFIG_PATH=%PREFIX%\share\pkgconfig
-  - cmd: python -x %cd%\waf utest -j1 -v
+  - cmd: ls -l %PREFIX%\lib
+  - cmd: ls -l %PREFIX%\lib\ibex
+  - cmd: ls -l %PREFIX%\lib\ibex\3rd
+  - cmd: set PATH=%PATH%;%PREFIX%\lib;%PREFIX%\lib\ibex;%PREFIX%\lib\ibex\3rd
+  - cmd: python -x %cd%\waf utest
 
 on_failure:
   - cmd: cat C:\projects\ibex-lib\__build__\config.log

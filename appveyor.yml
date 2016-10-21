@@ -25,9 +25,13 @@ build_script:
 
 test_script:
   - cmd: set PKG_CONFIG_PATH=%PREFIX%\share\pkgconfig
-  - cmd: ls -l %PREFIX%\lib
-  - cmd: ls -l %PREFIX%\lib\ibex
-  - cmd: ls -l %PREFIX%\lib\ibex\3rd
+  - cmd: set PATH=%PATH%;C:\\projects\\ibex-lib\\__build__\\tests
+  - cmd: set LIBRARY_PATH=%LIBRARY_PATH%;C:\\projects\\ibex-lib\\__build__\\tests
+  - cmd: set LD_LIBRARY_PATH=%LD_LIBRARY_PATH%;C:\\projects\\ibex-lib\\__build__\\tests
+  - cmd: set CPPU=C:\msys64\mingw32\lib;C:\msys64\mingw32\bin
+  - cmd: set PATH=%PATH%;%CPPU%
+  - cmd: set LIBRARY_PATH=%LIBRARY_PATH%;%CPPU%
+  - cmd: set LD_LIBRARY_PATH=%LD_LIBRARY_PATH%;%CPPU%
   - cmd: set PATH=%PATH%;%PREFIX%\lib;%PREFIX%\lib\ibex;%PREFIX%\lib\ibex\3rd
   - cmd: python -x %cd%\waf utest
 

@@ -20,6 +20,8 @@ def utest_format_output (tst):
 		return s
 
 	def parse_output (stream):
+		for i, c in enumerate(stream):
+		    print i, '%04x' % ord(c), unicodedata.category(c), unicodedata.name(c)
 		for l in stream.decode('utf-8').splitlines(True):
 			if l.startswith ("Run"):
 				data = l.split()

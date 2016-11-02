@@ -118,7 +118,8 @@ def configure (conf):
 	else:
 		conf.msg("Using library mathlib/ultim from", "3rd/ subdirectory")
 		mathlib_archive = "mathlib-2.1.0.tar.gz"
-		if Utils.is_win32:
+		#if Utils.is_win32:
+		if False:
 			mathlib_ret = conf.install_mathlib_win32 (mathlib_archive)
 		else:
 			mathlib_ret = conf.configure_3rd_party_with_autotools (mathlib_archive)

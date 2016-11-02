@@ -25,6 +25,8 @@ def install_mathlib_win32 (conf, archive_name):
 
 	# Apply patches
 	conf.apply_all_relevant_patches (name)
+	with open(os.path.join (srcdir, "src", "mathlib_config_mingw.h"), 'r') as f:
+	    print f.read()
 
 	conf.setenv ("mathlib", env = conf.env)
 

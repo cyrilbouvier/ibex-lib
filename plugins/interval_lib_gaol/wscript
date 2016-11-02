@@ -31,7 +31,7 @@ def install_mathlib_win32 (conf, archive_name):
 	for h in [ "dlfcn.h", "fenv.h", "inttypes.h", "memory.h", "stdint.h",
 						"stdlib.h", "strings.h", "string.h", "sys/stat.h", "sys/types.h",
 						"unistd.h" ]:
-		conf.check_cc (header_name = h)
+		conf.check_cc (header_name = h, mandatory = False)
 
 	#conf.define ("MATHLIB_CYGWIN", 1)
 	conf.define ("IX86_CPU", 1) # remove this ??

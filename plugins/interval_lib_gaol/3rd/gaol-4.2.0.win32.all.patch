@@ -12,6 +12,17 @@
  i?86-apple-*)
  	AC_DEFINE(IX86_MACOSX,1,
            [Define this if your system is a Linux-based ix86 or compatible])
+--- gaol-4.2.0/gaol/gaol_version.h	2016-11-02 17:52:49.176757087 +0100
++++ gaol-4.2.0/gaol/gaol_version.h	2016-11-02 17:53:04.505358760 +0100
+@@ -35,7 +35,7 @@
+ # include "gaol/gaol_version_msvc.h"
+ 
+ #elif defined (__MINGW32__)
+-// Nothing for now. FIXME!
++# include "gaol/gaol_version_mingw.h"
+ 
+ #elif defined (__GNUC__)
+ # include "gaol/gaol_configuration.h"
 --- gaol-4.2.0/gdtoa/gdtoa.h	2016-11-02 17:41:31.922173915 +0100
 +++ gaol-4.2.0/gdtoa/gdtoa.h	2016-11-02 17:42:24.568240369 +0100
 @@ -117,7 +117,7 @@

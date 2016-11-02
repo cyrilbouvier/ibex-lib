@@ -28,14 +28,10 @@ def install_mathlib_win32 (conf, archive_name):
 
 	conf.setenv ("mathlib", env = conf.env)
 
-	for h in [ "dlfcn.h", "fenv.h", "inttypes.h", "memory.h", "stdint.h",
-						"stdlib.h", "strings.h", "string.h", "sys/stat.h", "sys/types.h",
-						"unistd.h" ]:
-		conf.check_cc (header_name = h, mandatory = False)
+  conf.check_cc (header_name = "fenv")
 
-	#conf.define ("MATHLIB_CYGWIN", 1)
-	conf.define ("IX86_CPU", 1) # remove this ??
-	conf.define ("MATHLIB_LINUX", 1)
+	conf.define ("MATHLIB_CYGWIN", 1)
+	# conf.define ("IX86_CPU", 1) # remove this ??
 
 	version_str = name.split("-")[1]
 	conf.define ("PACKAGE", "mathlib")

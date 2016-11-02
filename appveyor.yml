@@ -16,7 +16,6 @@ install:
   - cmd: uname -a
   - cmd: pacman --noconfirm -S mingw32/mingw-w64-i686-cppunit
   - cmd: set CPATH=%CPATH%;C:\msys64\mingw32\include
-  - cmd: set CPATH=%CPATH%;C:\msys64\usr\include
   - cmd: set LIBRARY_PATH=%LIBRARY_PATH%;C:\msys64\mingw32\lib
   - cmd: set PREFIX=%HOMEDRIVE%%HOMEPATH%
 

@@ -119,8 +119,12 @@ def configure (conf):
 	else:
 		conf.msg ("Using library gaol from", "3rd/ subdirectory")
 		gaol_archive = "gaol-4.2.0.tar.gz"
-		args = "--with-mathlib-include=%s" % mathlib_include
-		args += " --with-mathlib-lib=%s" % mathlib_lib
+		if Utils.is_win32:
+			args = "--with-mathlib-include=%s" % ibexutils.convert_path_win2msys (mathlib_include)
+			args += " --with-mathlib-lib=%s" % ibexutils.convert_path_win2msys (mathlib_lib)
+		else:
+			args = "--with-mathlib-include=%s" % mathlib_include
+			args += " --with-mathlib-lib=%s" % mathlib_lib
 		gaol_ret = conf.configure_3rd_party_with_autotools (gaol_archive,
 				conf_args = args)
 		_, gaol_include, gaol_lib = gaol_ret

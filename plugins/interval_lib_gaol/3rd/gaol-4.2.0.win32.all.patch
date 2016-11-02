@@ -1,0 +1,10 @@
+--- gaol-4.2.0/configure.ac	2016-11-02 16:49:23.515135709 +0100
++++ gaol-4.2.0/configure.ac	2016-11-02 16:49:55.120391000 +0100
+@@ -347,6 +347,7 @@
+ 		  [Define this if the OS is a 64 bits one])
+ 	;;
+ i?86-*-cygwin*)
++*-*-msys*)
+ 	AC_DEFINE(IX86_CYGWIN,1,
+           [Define this if your system is a cygwin-based ix86 or compatible])
+ 	AM_CONDITIONAL([IS_CYGWIN_COND],[true])

@@ -18,6 +18,8 @@ install:
   - cmd: set CPATH=%CPATH%;C:\msys64\mingw32\include
   - cmd: set LIBRARY_PATH=%LIBRARY_PATH%;C:\msys64\mingw32\lib
   - cmd: set PREFIX=%HOMEDRIVE%%HOMEPATH%
+  - cmd: find C:\msys64 -name "*rand48*"
+  - cmd: find C:\mingw-w64 -name "*rand48*"
 
 build_script:
   - cmd: python -x %cd%\waf configure --interval-lib=gaol --prefix=%PREFIX%

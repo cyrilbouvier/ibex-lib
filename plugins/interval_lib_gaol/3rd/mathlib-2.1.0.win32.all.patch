@@ -6,3 +6,4 @@
  #define MATHLIB_MINGW 1
 +#define MATHLIB_CYGWIN 1
 +#define IX86_CPU 1
++

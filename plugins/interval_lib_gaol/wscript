@@ -25,31 +25,10 @@ def install_mathlib_win32 (conf, archive_name):
 
 	# Apply patches
 	conf.apply_all_relevant_patches (name)
-	with open(os.path.join (srcdir, "src", "mathlib_config_mingw.h"), 'r') as f:
-	    print f.read()
 
 	conf.setenv ("mathlib", env = conf.env)
 
 	conf.check_cc (header_name = "fenv.h")
-
-	conf.define ("MATHLIB_CYGWIN", 1)
-	# conf.define ("IX86_CPU", 1) # remove this ??
-
-	version_str = name.split("-")[1]
-	conf.define ("PACKAGE", "mathlib")
-	conf.define ("PACKAGE_BUGREPORT", "")
-	conf.define ("PACKAGE_NAME", "mathlib")
-	conf.define ("PACKAGE_STRING", "mathlib %s" % version_str)
-	conf.define ("PACKAGE_TARNAME", "mathlib")
-	conf.define ("PACKAGE_URL", "")
-	conf.define ("PACKAGE_VERSION", version_str)
-	conf.define ("STDC_HEADERS", 1)
-	conf.define ("VERSION", version_str)
-	# XXX What to do with X86_64BITS ???
-
-	config_header = os.path.join (srcdir, "src", "mathlib_configuration.h")
-	config_header = os.path.relpath (config_header, start=conf.bldnode.abspath())
-	conf.write_config_header (configfile = config_header, top = True)
 
 	bld = Context.create_context ("build", top_dir = os.path.join (srcdir, "src"),
 																out_dir = os.path.join (srcdir, "src"))
@@ -75,7 +54,7 @@ def install_mathlib_win32 (conf, archive_name):
 
 	if not os.path.exists (incdir):
 		os.makedirs (incdir)
-	for h in ["mathlib_config.h", "mathlib_configuration.h", "MathLib.h"]:
+	for h in ["mathlib_config.h", "mathlib_config_mingw.h", "MathLib.h"]:
 		shutil.copyfile (os.path.join (srcdir, "src", h), os.path.join (incdir, h))
 
 	if not os.path.exists (libdir):

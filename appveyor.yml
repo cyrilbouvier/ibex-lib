@@ -3,7 +3,7 @@ image: Visual Studio 2015
 
 branches:
   only:
-  - Gaol4
+  - appveyor-gaol
 
 platform:
   - x86

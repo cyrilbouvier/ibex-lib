@@ -4,5 +4,5 @@
  #define VERSION "0.0.1"
  
  #define MATHLIB_MINGW 1
-+#define MATHLIB_CYGWIN
-+#define IX86_CPU
++#define MATHLIB_CYGWIN 1
++#define IX86_CPU 1

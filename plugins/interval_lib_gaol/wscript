@@ -144,7 +144,7 @@ def configure (conf):
 				"uselib_store": "ITV_LIB"}
 	if Utils.is_win32: # on windows we need at least SSE2
 		ret = None
-	else
+	else:
 		ret = conf.check_cxx (**D)
 	if not ret:
 		D["cxxflags"] = "-msse2"

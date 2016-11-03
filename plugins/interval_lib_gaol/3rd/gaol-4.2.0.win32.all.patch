@@ -18,8 +18,8 @@
  	AM_CONDITIONAL([IS_CYGWIN_COND],[true])
  	;;
 +*-*-msys*)
-+	AC_DEFINE(IX86_MINGW,1,
-+          [Define this if your system is a mingw-based ix86 or compatible])
++	AC_DEFINE(IX86_LINUX,1,
++          [Define this if your system is a Linux-based ix86 or compatible])
 +	AM_CONDITIONAL([IS_CYGWIN_COND],[false])
 +	;;
  i?86-apple-*)

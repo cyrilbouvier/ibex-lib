@@ -87,7 +87,7 @@
  # define GAOL_ERRNO errno
  # undef PACKAGE
  # undef VERSION
-@@ -77,16 +62,4 @@
+@@ -77,16 +62,6 @@
  # endif
  # define INLINE inline
  
@@ -101,6 +101,6 @@
 -# endif
 -# define INLINE inline
 -# include "gaol/gaol_configuration.h"
--#endif
--
+ #endif
+ 
  #endif /* __gaol_config_h__ */

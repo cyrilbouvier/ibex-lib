@@ -142,7 +142,10 @@ def configure (conf):
 	D = {"header_name": "gaol/gaol.h", "mandatory": False, "errmsg": "no",
 				"includes": gaol_include, "use": [ "IBEX", "ITV_LIB" ],
 				"uselib_store": "ITV_LIB"}
-	ret = conf.check_cxx (**D)
+  if Utils.is_win32: # on windows we need at least SSE2
+    ret = None
+  else
+	  ret = conf.check_cxx (**D)
 	if not ret:
 		D["cxxflags"] = "-msse2"
 		D["msg"] = "Checking for header "+D["header_name"]+" with "+D["cxxflags"]

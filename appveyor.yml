@@ -7,7 +7,6 @@ branches:
 
 platform:
   - x86
-  - x64
 
 install:
   - cmd: echo %Platform%
@@ -23,9 +22,6 @@ build_script:
   - cmd: python -x %cd%\waf configure --interval-lib=gaol --prefix=%PREFIX%
   - cmd: python -x %cd%\waf build install clean
 
-on_finish:
-  - cmd: cat C:\projects\ibex-lib\__build__\config.log
-
 test_script:
   - cmd: set PKG_CONFIG_PATH=%PREFIX%\share\pkgconfig
   # We need to add the path to libcppunit in PATH
@@ -36,3 +32,5 @@ on_failure:
   - cmd: cat C:\projects\ibex-lib\__build__\config.log
   - cmd: cat C:\projects\ibex-lib\__build__\utest_config.log
   - cmd: cat C:\projects\ibex-lib\__build__\utest_run.log
+  - cmd: cat C:\projects\ibex-lib\__build__\3rd\gaol-4.2.0\gaol\gaol_configuration.h
+  - cmd: cat C:\projects\ibex-lib\__build__\3rd\gaol-4.2.0\gaol\gaol_config_mingw.h

@@ -142,7 +142,6 @@ def configure (conf):
 	D = {"header_name": "gaol/gaol.h", "mandatory": False, "errmsg": "no",
 				"includes": gaol_include, "use": [ "IBEX", "ITV_LIB" ],
 				"uselib_store": "ITV_LIB"}
-	D["cxxflags"] = "-msse3"
 	ret = conf.check_cxx (**D)
 	if not ret:
 		D["cxxflags"] = "-msse2"

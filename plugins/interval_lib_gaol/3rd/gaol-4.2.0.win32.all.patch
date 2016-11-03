@@ -57,3 +57,13 @@
  extern float  strtof ANSI((CONST char *, char **)) __GAOL_THROW();
  extern double strtod ANSI((CONST char *, char **)) __GAOL_THROW();
  #endif // IX86_MACOSX
+--- gaol-4.2.0/gaol/gaol_config_mingw.h	2016-11-03 09:52:08.900599465 +0100
++++ gaol-4.2.0/gaol/gaol_config_mingw.h	2016-11-03 09:53:27.139124016 +0100
+@@ -121,6 +121,6 @@
+ /* define this to 1 if rounding direction should be preserved */
+ #define GAOL_PRESERVE_ROUNDING 1
+ 
+-#define USING_SSE2_INSTRUCTIONS 1
++/* #undef USING_SSE2_INSTRUCTIONS */
+ 
+ #endif /* __gaol_config_mingw_h__ */

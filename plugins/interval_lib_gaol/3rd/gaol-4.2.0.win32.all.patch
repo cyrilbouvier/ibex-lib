@@ -42,7 +42,7 @@
  			int mode, int ndigits, int *decpt, char **rve));
  extern void freedtoa ANSI((char*));
 -#if !IX86_MACOSX
-+#if !IX86_MACOSX && !IX86_MINGW
++#if !IX86_MACOSX && !__MINGW32__
  extern float  strtof ANSI((CONST char *, char **)) __GAOL_THROW();
  extern double strtod ANSI((CONST char *, char **)) __GAOL_THROW();
  #endif // IX86_MACOSX

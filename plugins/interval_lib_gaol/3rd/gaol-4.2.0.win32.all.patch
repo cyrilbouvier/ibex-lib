@@ -107,3 +107,29 @@
  #endif
  
  #endif /* __gaol_config_h__ */
+--- gaol-4.2.0/check/reverse_mappings.cpp	2016-12-01 13:51:39.479201019 +0100
++++ gaol-4.2.0/check/reverse_mappings.cpp	2016-12-01 13:51:14.342263016 +0100
+@@ -7,6 +7,10 @@
+  */
+ #define RAND_INIT_PID 1
+ 
++#ifdef (__MINGW32__)
++#define drand48() ((double) rand() / ((double) RAND_MAX + 1.0))
++#endif
++
+ using std::cout;
+ using std::endl;
+ 
+--- gaol-4.2.0/check/performance_test_set.cpp	2016-12-01 13:52:56.294060677 +0100
++++ gaol-4.2.0/check/performance_test_set.cpp	2016-12-01 13:53:11.882639855 +0100
+@@ -31,6 +31,10 @@
+ #include "performance_test_set.h"
+ #include "../gaol/gaol.h"
+ 
++#ifdef (__MINGW32__)
++#define drand48() ((double) rand() / ((double) RAND_MAX + 1.0))
++#endif
++
+ using namespace std;
+ using namespace gaol;
+ 

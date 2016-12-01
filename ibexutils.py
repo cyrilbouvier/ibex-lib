@@ -143,8 +143,8 @@ def configure_3rd_party_with_autotools (conf, archive_name,
 
 	stages = []
 	if not without_configure:
-		if Utils.is_win32:
-			stages += [ (cmd_rmconfig, cmd_rmconfig[2]), (cmd_reconf, "autoreconf") ]
+		#if Utils.is_win32:
+		#	stages += [ (cmd_rmconfig, cmd_rmconfig[2]), (cmd_reconf, "autoreconf") ]
 		stages += [ (cmd_conf, "configure") ]
 	stages += [ (cmd_make, "make") ]
 	if not without_make_install:

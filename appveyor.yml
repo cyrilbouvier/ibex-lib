@@ -14,6 +14,7 @@ install:
   - cmd: set MINGW=C:\MinGW
   - cmd: set PATH=%MINGW%;C:\MinGW\msys\1.0;%PATH%
   - cmd: ls -l C:\MinGW\msys\1.0
+  - cmd: ls -l C:\MinGW\msys\1.0\bin
   - cmd: uname -a
   - cmd: C:\MinGW\msys\1.0\bin\sh.exe -c "./waf configure"
   - cmd: pacman --noconfirm -S mingw32/mingw-w64-i686-cppunit

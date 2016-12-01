@@ -109,11 +109,12 @@
  #endif /* __gaol_config_h__ */
 --- gaol-4.2.0/check/reverse_mappings.cpp	2016-12-01 13:51:39.479201019 +0100
 +++ gaol-4.2.0/check/reverse_mappings.cpp	2016-12-01 13:51:14.342263016 +0100
-@@ -7,6 +7,10 @@
+@@ -7,6 +7,11 @@
   */
  #define RAND_INIT_PID 1
  
-+#ifdef __MINGW32__
++#ifdef (__MINGW32__)
++#define srand48(x) srand(x)
 +#define drand48() ((double) rand() / ((double) RAND_MAX + 1.0))
 +#endif
 +
@@ -133,3 +134,15 @@
  using namespace std;
  using namespace gaol;
  
+--- gaol-4.2.0/check/performances.cpp	2016-12-01 14:01:19.084604113 +0100
++++ gaol-4.2.0/check/performances.cpp	2016-12-01 14:01:40.221379179 +0100
+@@ -38,6 +38,9 @@
+ // Maximum bound on exponent used for pow
+ #define EXP_BOUND 10
+ 
++#ifdef (__MINGW32__)
++#define srand48(x) srand(x)
++#endif
+ 
+ const size_t MAX = 1000000;
+ const size_t LOOPS = 10;

@@ -16,7 +16,7 @@ install:
   - cmd: set PATH=%MINGW%\bin;%MSYS%\bin;%PATH%
   - cmd: uname -a
   - cmd: C:\MinGW\msys\1.0\bin\sh.exe -c "echo $PATH"
-  - cmd: C:\MinGW\msys\1.0\bin\sh.exe -c "./waf configure --interval-lib=filib"
+  - cmd: C:\MinGW\msys\1.0\bin\sh.exe -c "./waf configure --interval-lib=filib build install "
   - cmd: pacman --noconfirm -S mingw32/mingw-w64-i686-cppunit
   - cmd: set CPATH=%CPATH%;C:\msys64\mingw32\include
   - cmd: set LIBRARY_PATH=%LIBRARY_PATH%;C:\msys64\mingw32\lib

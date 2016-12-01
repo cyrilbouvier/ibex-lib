@@ -13,6 +13,12 @@ install:
   - cmd: echo %Platform%
   - cmd: set MINGW-W64_BASE=C:\mingw-w64\i686-5.3.0-posix-dwarf-rt_v4-rev0
   - cmd: set PATH=%MINGW-W64_BASE%\mingw32\bin;C:\msys64\usr\bin;%PATH%
+  - cmd: find C:\mingw-w64 -name msys.bat
+  - cmd: find C:\mingw-w64 -name bash
+  - cmd: find C:\mingw-w64 -name sh
+  - cmd: find C:\msys64 -name msys.bat
+  - cmd: find C:\msys64 -name bash
+  - cmd: find C:\msys64 -name sh
   - cmd: uname -a
   - cmd: pacman --noconfirm -S mingw32/mingw-w64-i686-cppunit
   - cmd: set CPATH=%CPATH%;C:\msys64\mingw32\include

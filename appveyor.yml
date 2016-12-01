@@ -15,7 +15,7 @@ install:
   - cmd: set PATH=%MINGW%;C:\MinGW\msys\1.0;%PATH%
   - cmd: ls -l C:\MinGW\msys\1.0
   - cmd: uname -a
-  - cmd: C:\MinGW\msys\1.0\bin\sh.exe pwd
+  - cmd: C:\MinGW\msys\1.0\bin\sh.exe -c "echo $PATH"
   - cmd: pacman --noconfirm -S mingw32/mingw-w64-i686-cppunit
   - cmd: set CPATH=%CPATH%;C:\msys64\mingw32\include
   - cmd: set LIBRARY_PATH=%LIBRARY_PATH%;C:\msys64\mingw32\lib

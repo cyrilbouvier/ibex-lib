@@ -113,7 +113,7 @@
   */
  #define RAND_INIT_PID 1
  
-+#ifdef (__MINGW32__)
++#ifdef __MINGW32__
 +#define drand48() ((double) rand() / ((double) RAND_MAX + 1.0))
 +#endif
 +
@@ -126,7 +126,7 @@
  #include "performance_test_set.h"
  #include "../gaol/gaol.h"
  
-+#ifdef (__MINGW32__)
++#ifdef __MINGW32__
 +#define drand48() ((double) rand() / ((double) RAND_MAX + 1.0))
 +#endif
 +

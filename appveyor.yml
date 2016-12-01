@@ -15,7 +15,9 @@ install:
   - cmd: set MSYS=%MINGW%\msys\1.0
   - cmd: set PATH=%MINGW%\bin;%MSYS%\bin;%PATH%
   - cmd: uname -a
-  - cmd: C:\MinGW\msys\1.0\bin\sh.exe -c "echo $PATH"
+  - cmd: find C:\MinGW -name "*cppunit*"
+  - cmd: find C:\MinGW -name "mingw-get"
+  - cmd: C:\MinGW\msys\1.0\bin\sh.exe -c "mingw-get update"
   - cmd: C:\MinGW\msys\1.0\bin\sh.exe -c "./waf configure build install "
   - cmd: pacman --noconfirm -S mingw32/mingw-w64-i686-cppunit
   - cmd: set CPATH=%CPATH%;C:\msys64\mingw32\include

@@ -133,8 +133,8 @@ def configure_3rd_party_with_autotools (conf, archive_name,
 		conf_args += " --prefix=%s" % convert_path_win2msys (destnode.abspath ())
 		conf.find_program ("sh")
 		cmd_conf = [conf.env.SH, "-c", "./configure %s"%conf_args]
-		cmd_rmconfig = [conf.env.SH, "-c", "rm config.sub config.guess"]
-		cmd_reconf = [conf.env.SH, "-c", "autoreconf -i"]
+		#cmd_rmconfig = [conf.env.SH, "-c", "rm config.sub config.guess"]
+		#cmd_reconf = [conf.env.SH, "-c", "autoreconf -i"]
 	else:
 		conf_args += " --prefix=%s" % destnode.abspath ()
 		cmd_conf = "./configure %s" % (conf_args)

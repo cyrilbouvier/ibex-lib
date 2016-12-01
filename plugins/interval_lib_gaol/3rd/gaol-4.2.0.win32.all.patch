@@ -13,7 +13,15 @@
  # Requires automake 1.4
 --- gaol-4.2.0/configure.ac	2016-11-02 16:49:23.515135709 +0100
 +++ gaol-4.2.0/configure.ac	2016-11-02 16:49:55.120391000 +0100
-@@ -351,6 +351,16 @@
+@@ -333,6 +333,7 @@
+ # Determines the kind of architecture to use
+ AC_CANONICAL_HOST
+ 
++AC_MSG_WARN([$host])
+ case $host in
+ i?86-*-linux*)
+ 	AC_DEFINE(IX86_LINUX,1,
+@@ -351,6 +352,16 @@
            [Define this if your system is a cygwin-based ix86 or compatible])
  	AM_CONDITIONAL([IS_CYGWIN_COND],[true])
  	;;

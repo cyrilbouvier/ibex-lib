@@ -14,8 +14,8 @@ install:
   - cmd: set MSYS=%MINGW%\msys\1.0
   - cmd: set MINGW64=C:\mingw-w64\i686-5.3.0-posix-dwarf-rt_v4-rev0
   - cmd: set MSYS64=C:\msys64
-  - cmd: set PATH=%MINGW%\bin;%MSYS%\bin;%PATH%
-  #- cmd: set PATH=%MINGW64%\mingw32\bin;%MSYS64%\usr\bin;%PATH%
+  #- cmd: set PATH=%MINGW%\bin;%MSYS%\bin;%PATH%
+  - cmd: set PATH=%MINGW64%\mingw32\bin;%MSYS64%\usr\bin;%PATH%
   - cmd: uname -a
   - cmd: echo %Platform%
   - cmd: sh.exe -c "echo $TEST_INTERVAL_LIB"
@@ -31,11 +31,9 @@ build_script:
   - cmd: sh.exe -c "./waf build install clean"
 
 test_script:
-  - cmd: set PKG_CONFIG_PATH=%PREFIX%\share\pkgconfig;prout
+  - cmd: set PKG_CONFIG_PATH=%PREFIX%\share\pkgconfig
   # We need to add the path to libcppunit in PATH
   - cmd: set PATH=%PATH%;C:\msys64\mingw32\bin
-  - cmd: sh.exe -c "echo $PKG_CONFIG_PATH"
-  - cmd: sh.exe -c "pkg-config --cflags --libs ibex"
   - cmd: sh.exe -c "./waf utest"
 
 on_failure:

@@ -129,6 +129,8 @@ def utest (tst):
 		env_bak = tst.env.env
 		tst.env.env = tst.env.env if tst.env.env else {}
 
+		print test.env.PKGDIR
+		print tets.env.env["PKG_CONFIG_PATH"]
 		# Set PKG_CONFIG_PATH if it does not contain tst.env.PKGDIR
 		pkg_path = os.getenv ("PKG_CONFIG_PATH", "").split (":")
 		if not tst.env.PKGDIR in pkg_path:
@@ -136,6 +138,7 @@ def utest (tst):
 			pkg_path.append (tst.env.PKGDIR)
 		tst.env.env["PKG_CONFIG_PATH"] = ":".join (pkg_path)
 
+		print tets.env.env["PKG_CONFIG_PATH"]
 		# Using pkg-config to retrieve info on ibex (assume './waf install' was run)
 		try:
 			tst.check_cfg (package="ibex",args="--cflags --libs",uselib_store="TESTS")

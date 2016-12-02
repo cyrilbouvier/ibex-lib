@@ -136,7 +136,7 @@ def utest (tst):
 		if not tst.env.PKGDIR in pkg_path:
 			Logs.warn ("You should add '%s' to your PKG_CONFIG_PATH" % tst.env.PKGDIR)
 			if Utils.is_win32:
-				pkg_path.append (convert_path_win2msys (tst.env.PKGDIR))
+				pkg_path.append (ibexutils.convert_path_win2msys (tst.env.PKGDIR))
 			else:
 				pkg_path.append (tst.env.PKGDIR)
 		tst.env.env["PKG_CONFIG_PATH"] = ":".join (pkg_path)

@@ -144,6 +144,7 @@ def utest (tst):
 			Logs.warn ("You should add '%s' to your PKG_CONFIG_PATH" % pkgdir)
 			pkg_path.append (pkgdir)
 		tst.env.env["PKG_CONFIG_PATH"] = ":".join (pkg_path + tst.env.PKGDIR)
+		tst.env.env["PKG_CONFIG_PATH"] += ":" + tst.env.PKGDIR
 
 		print tst.env.env["PKG_CONFIG_PATH"]
 		# Using pkg-config to retrieve info on ibex (assume './waf install' was run)

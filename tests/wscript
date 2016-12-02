@@ -131,22 +131,18 @@ def utest (tst):
 
 		# Set PKG_CONFIG_PATH if it does not contain tst.env.PKGDIR
 		if Utils.is_win32:
-			pkgdir = ibexutils.convert_path_win2msys (tst.env.PKGDIR)
-			pkg_path = [ ibexutils.convert_path_win2msys (p)
-												 for p in os.getenv ("PKG_CONFIG_PATH", "").split (";")]
-		else:
-			pkgdir = tst.env.PKGDIR
-			pkg_path = os.getenv ("PKG_CONFIG_PATH", "").split (":")
-		print tst.env.PKGDIR
-		print pkg_path
-		print pkgdir
-		if not pkgdir in pkg_path:
+			split_char = ";"
+		else
+			split_char = ":"
+		pkg_path = os.getenv ("PKG_CONFIG_PATH", "").split (split_char)
+		print "PKGDIR=", tst.env.PKGDIR
+		print "pkg_path=", pkg_path
+		if not tst.env.PKGDIR in pkg_path:
 			Logs.warn ("You should add '%s' to your PKG_CONFIG_PATH" % pkgdir)
-			pkg_path.append (pkgdir)
-		tst.env.env["PKG_CONFIG_PATH"] = ":".join (pkg_path)
-		tst.env.env["PKG_CONFIG_PATH"] += ":" + tst.env.PKGDIR
+			pkg_path.append (tst.env.PKGDIR)
+		tst.env.env["PKG_CONFIG_PATH"] = split_char.join (pkg_path)
 
-		print tst.env.env["PKG_CONFIG_PATH"]
+		print "PKG_CONFIG_PATH=", tst.env.env["PKG_CONFIG_PATH"]
 		# Using pkg-config to retrieve info on ibex (assume './waf install' was run)
 		try:
 			tst.check_cfg (package="ibex",args="--cflags --libs",uselib_store="TESTS")

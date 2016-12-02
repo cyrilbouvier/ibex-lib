@@ -29,7 +29,10 @@ install:
   - cmd: sh.exe -c "cd cppunit-1.13.2 && ./configure && make && make install"
   - cmd: set CPATH=%CPATH%;%PREFIX%\include
   - cmd: set LIBRARY_PATH=%LIBRARY_PATH%;%PREFIX%\lib
-  - cmd: set PKG_CONFIG_PATH=%PREFIX%\share\pkgconfig
+  - cmd: set PKG_CONFIG_PATH=%PREFIX%\share\pkgconfig;%MSYS%\usr\local\lib\pkgconfig
+  - cmd: find %MSYS% -name pkgconfig
+  - cmd: sh.exe -c "ls -l %MSYS%\usr\local\lib\pkgconfig"
+  - cmd: set PATH=%PATH%;C:\msys64\mingw32\bin
   - cmd: sh.exe -c "pkg-config --cflags --libs cppunit"
 
 build_script:

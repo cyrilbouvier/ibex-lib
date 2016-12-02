@@ -132,7 +132,7 @@ def utest (tst):
 		# Set PKG_CONFIG_PATH if it does not contain tst.env.PKGDIR
 		if Utils.is_win32:
 			split_char = ";"
-		else
+		else:
 			split_char = ":"
 		pkg_path = os.getenv ("PKG_CONFIG_PATH", "").split (split_char)
 		print "PKGDIR=", tst.env.PKGDIR

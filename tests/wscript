@@ -91,10 +91,14 @@ def configure (conf):
 	conf.load("waf_unit_test")
 
 	# cppunit is needed to run the tests but we set mandatory=False because the
-	# tests are not mandatory.
-	conf.check_cxx (header_name="cppunit/Test.h", uselib_store="CPPUNIT",
-				mandatory=False)
-	conf.check_cxx (lib="cppunit", uselib_store="CPPUNIT", mandatory=False)
+	# tests are not mandatory. First we try with pkg-config
+	try:
+		conf.check_cfg (package="cppunit", args="--cflags --libs",
+										uselib_store="CPPUNIT")
+	except Errors.WafError:
+		conf.check_cxx (header_name="cppunit/Test.h", uselib_store="CPPUNIT",
+										mandatory=False)
+		conf.check_cxx (lib="cppunit", uselib_store="CPPUNIT", mandatory=False)
 
 	# Looking for fmemopen
 	conf.check_cxx (function_name = "fmemopen", header_name = "stdio.h",

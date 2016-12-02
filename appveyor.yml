@@ -23,6 +23,9 @@ install:
   - cmd: C:\msys64\usr\bin\pacman.exe --noconfirm -S mingw32/mingw-w64-i686-cppunit
   - cmd: set CPATH=%CPATH%;C:\msys64\mingw32\include
   - cmd: set LIBRARY_PATH=%LIBRARY_PATH%;C:\msys64\mingw32\lib
+  - cmd: sh.exe -c "wget http://dev-www.libreoffice.org/src/cppunit-1.13.2.tar.gz"
+  - cmd: sh.exe -c "tar -xzf cppunit-1.13.2.tar.gz"
+  - cmd: sh.exe -c "cd cppunit-1.13.2 && ./configure && make && make install"
   - cmd: set PREFIX=%HOMEDRIVE%%HOMEPATH%
   - cmd: sh.exe -c "echo $HOME"
 
@@ -34,7 +37,6 @@ test_script:
   - cmd: set PKG_CONFIG_PATH=%PREFIX%\share\pkgconfig
   # We need to add the path to libcppunit in PATH
   - cmd: set PATH=%PATH%;C:\msys64\mingw32\bin
-  - cmd: sh.exe -c "wget http://dev-www.libreoffice.org/src/cppunit-1.13.2.tar.gz"
   - cmd: sh.exe -c "./waf utest"
 
 on_failure:

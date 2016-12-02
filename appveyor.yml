@@ -19,15 +19,17 @@ install:
   - cmd: uname -a
   - cmd: echo %Platform%
   - cmd: sh.exe -c "echo $TEST_INTERVAL_LIB"
+  - cmd: set PREFIX=%HOMEDRIVE%%HOMEPATH%
   # install libcppunit (from msys64)
   - cmd: C:\msys64\usr\bin\pacman.exe --noconfirm -S mingw32/mingw-w64-i686-cppunit
-  - cmd: set CPATH=%CPATH%;C:\msys64\mingw32\include
-  - cmd: set LIBRARY_PATH=%LIBRARY_PATH%;C:\msys64\mingw32\lib
+  #- cmd: set CPATH=%CPATH%;C:\msys64\mingw32\include
+  #- cmd: set LIBRARY_PATH=%LIBRARY_PATH%;C:\msys64\mingw32\lib
   - cmd: sh.exe -c "wget http://dev-www.libreoffice.org/src/cppunit-1.13.2.tar.gz"
   - cmd: sh.exe -c "tar -xzf cppunit-1.13.2.tar.gz"
-  - cmd: sh.exe -c "cd cppunit-1.13.2 && ./configure && make && make install"
-  - cmd: set PREFIX=%HOMEDRIVE%%HOMEPATH%
-  - cmd: sh.exe -c "echo $HOME"
+  - cmd: sh.exe -c "cd cppunit-1.13.2 && ./configure --prefix=$PREFIX && make && make install"
+	- cmd: sh.exe -c "pkg-config --cflags --libs cppunit"
+  - cmd: set CPATH=%CPATH%;%PREFIX%\include
+  - cmd: set LIBRARY_PATH=%LIBRARY_PATH%;%PREFIX%\lib
 
 build_script:
   - cmd: sh.exe -c "./waf configure --interval-lib=$TEST_INTERVAL_LIB --prefix=$PREFIX"

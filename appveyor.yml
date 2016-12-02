@@ -11,22 +11,28 @@ environment:
 
 install:
   - cmd: echo %Platform%
+  - cmd: set MINGW64=C:\mingw-w64\i686-5.3.0-posix-dwarf-rt_v4-rev0
+  - cmd: set MSYS64=C:\msys64
+  #- cmd: set PATH=%MINGW64%\mingw32\bin;%MSYS64%\usr\bin;%PATH%
   - cmd: set MINGW=C:\MinGW
   - cmd: set MSYS=%MINGW%\msys\1.0
   - cmd: set PATH=%MINGW%\bin;%MSYS%\bin;%PATH%
   - cmd: uname -a
-  - cmd: find C:\MinGW -name "*cppunit*"
-  - cmd: find C:\MinGW -name "mingw-get"
   - cmd: C:\MinGW\msys\1.0\bin\sh.exe -c "mingw-get update"
   - cmd: ls -l C:\MinGW\var\lib\mingw-get\data\
-  - cmd: C:\MinGW\msys\1.0\bin\sh.exe -c 'grep -R "cppunit" /mingw/var/lib/mingw-get/data/'
-  - cmd: C:\MinGW\msys\1.0\bin\sh.exe -c "./waf configure build install "
+  - cmd: C:\MinGW\msys\1.0\bin\sh.exe -c 'ls -l /'
+  - cmd : find %MINGW% -name "pacman"
+  - cmd : find %MINGW64% -name "pacman"
+  - cmd : find %MSYS% -name "pacman"
+  - cmd : find %MSYS64% -name "pacman"
   - cmd: pacman --noconfirm -S mingw32/mingw-w64-i686-cppunit
   - cmd: set CPATH=%CPATH%;C:\msys64\mingw32\include
   - cmd: set LIBRARY_PATH=%LIBRARY_PATH%;C:\msys64\mingw32\lib
   - cmd: set PREFIX=%HOMEDRIVE%%HOMEPATH%
 
 build_script:
+  - cmd: sh.exe -c "./waf configure --interval-lib=$TEST_INTERVAL_LIB --prefix=$PREFIX "
+  - cmd: sh.exe -c "./waf build install clean"
   - cmd: python -x %cd%\waf configure --interval-lib=%TEST_INTERVAL_LIB% --prefix=%PREFIX%
   - cmd: python -x %cd%\waf build install clean
 

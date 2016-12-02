@@ -143,7 +143,7 @@ def utest (tst):
 		if not pkgdir in pkg_path:
 			Logs.warn ("You should add '%s' to your PKG_CONFIG_PATH" % pkgdir)
 			pkg_path.append (pkgdir)
-		tst.env.env["PKG_CONFIG_PATH"] = ":".join (pkg_path + tst.env.PKGDIR)
+		tst.env.env["PKG_CONFIG_PATH"] = ":".join (pkg_path)
 		tst.env.env["PKG_CONFIG_PATH"] += ":" + tst.env.PKGDIR
 
 		print tst.env.env["PKG_CONFIG_PATH"]

@@ -35,7 +35,6 @@ test_script:
   # We need to add the path to libcppunit in PATH
   - cmd: set PATH=%PATH%;C:\msys64\mingw32\bin
   - cmd: sh.exe -c "echo $PKG_CONFIG_PATH"
-  - cmd: sh.exe -c "ls -l $PKG_CONFIG_PATH"
   - cmd: sh.exe -c "pkg-config --cflags --libs ibex"
   - cmd: sh.exe -c "./waf utest"
 

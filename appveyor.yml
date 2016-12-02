@@ -44,7 +44,7 @@ test_script:
   - cmd: sh.exe -c "./waf utest"
 
 on_failure:
-  - cmd: sh.exe -c "./__build_/tests/utest_Arith"
+  - cmd: sh.exe -c "./__build__/tests/utest_Arith"
   - cmd: cat C:\projects\ibex-lib\__build__\config.log
   - cmd: cat C:\projects\ibex-lib\__build__\utest_config.log
   - cmd: cat C:\projects\ibex-lib\__build__\utest_run.log

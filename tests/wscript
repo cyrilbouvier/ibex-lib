@@ -138,7 +138,7 @@ def utest (tst):
 		split_char = ";" if Utils.is_win32 else ":"
 		pkg_path = os.getenv ("PKG_CONFIG_PATH", "").split (split_char)
 		if not tst.env.PKGDIR in pkg_path:
-			Logs.warn ("You should add '%s' to your PKG_CONFIG_PATH" % pkgdir)
+			Logs.warn ("You should add '%s' to your PKG_CONFIG_PATH" % tst.env.PKGDIR)
 			pkg_path.append (tst.env.PKGDIR)
 		tst.env.env["PKG_CONFIG_PATH"] = split_char.join (pkg_path)
 

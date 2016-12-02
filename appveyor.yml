@@ -18,6 +18,7 @@ install:
   - cmd: set MSYS=%MINGW%\msys\1.0
   - cmd: set PATH=%MINGW%\bin;%MSYS%\bin;%PATH%
   - cmd: uname -a
+  - cmd: sh.exe -c "echo $PATH"
   - cmd: C:\MinGW\msys\1.0\bin\sh.exe -c "mingw-get update"
   - cmd: ls -l C:\MinGW\var\lib\mingw-get\data\
   - cmd: C:\MinGW\msys\1.0\bin\sh.exe -c 'ls -l /'

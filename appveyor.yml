@@ -40,6 +40,7 @@ test_script:
   - cmd: sh.exe -c "echo $LD_LIBRARY_PATH"
   - cmd: sh.exe -c "echo $LIBRARY_PATH"
   - cmd: sh.exe -c "echo $PATH"
+  - cmd: sh.exe -c 'find /usr/local -name "*cppunit*"'
   - cmd: sh.exe -c "./waf utest"
 
 on_failure:

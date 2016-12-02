@@ -22,8 +22,11 @@ install:
   - cmd: sh.exe -c "wget http://dev-www.libreoffice.org/src/cppunit-1.13.2.tar.gz"
   - cmd: sh.exe -c "tar -xzf cppunit-1.13.2.tar.gz"
   - cmd: sh.exe -c "cd cppunit-1.13.2 && ./configure && make && make install"
-  - cmd: set CPATH=%CPATH%;%PREFIX%\include
-  - cmd: set LIBRARY_PATH=%LIBRARY_PATH%;%PREFIX%\lib
+  # Set some paths
+  #- cmd: set CPATH=%CPATH%;%PREFIX%\include
+  #- cmd: set LIBRARY_PATH=%LIBRARY_PATH%;%PREFIX%\lib
+  - cmd: set LIBRARY_PATH=%LIBRARY_PATH%;%MSYS%\local\lib;%MSYS%\local\bin
+  - cmd: set LD_LIBRARY_PATH=%LD_LIBRARY_PATH%;%MSYS%\local\lib;%MSYS%\local\bin
   - cmd: set PKG_CONFIG_PATH=%PREFIX%\share\pkgconfig;%MSYS%\local\lib\pkgconfig
   # Add the directory of pkg-config in PATH
   - cmd: set PATH=%PATH%;C:\msys64\mingw32\bin
@@ -33,9 +36,6 @@ build_script:
   - cmd: sh.exe -c "./waf build install clean"
 
 test_script:
-  # We need to add the path to libcppunit in PATH
-  #- cmd: set PATH=%PATH%;C:\msys64\mingw32\bin
-  - cmd: set PATH=%PATH%;%MSYS%\local\lib;%MSYS%\local\bin
   - cmd: sh.exe -c "./waf utest"
 
 on_failure:

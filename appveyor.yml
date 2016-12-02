@@ -36,6 +36,7 @@ test_script:
   - cmd: set PATH=%PATH%;C:\msys64\mingw32\bin
   - cmd: sh.exe -c "echo $PKG_CONFIG_PATH"
   - cmd: sh.exe -c "ls -l $PKG_CONFIG_PATH"
+  - cmd: sh.exe -c "pkg-config --cflags --libs ibex"
   - cmd: sh.exe -c "./waf utest"
 
 on_failure:

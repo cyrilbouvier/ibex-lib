@@ -27,7 +27,7 @@ install:
   - cmd: sh.exe -c "wget http://dev-www.libreoffice.org/src/cppunit-1.13.2.tar.gz"
   - cmd: sh.exe -c "tar -xzf cppunit-1.13.2.tar.gz"
   - cmd: sh.exe -c "cd cppunit-1.13.2 && ./configure --prefix=$PREFIX && make && make install"
-	- cmd: sh.exe -c "pkg-config --cflags --libs cppunit"
+  - cmd: sh.exe -c "pkg-config --cflags --libs cppunit"
   - cmd: set CPATH=%CPATH%;%PREFIX%\include
   - cmd: set LIBRARY_PATH=%LIBRARY_PATH%;%PREFIX%\lib
 

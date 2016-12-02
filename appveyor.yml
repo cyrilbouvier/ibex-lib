@@ -21,11 +21,11 @@ install:
   - cmd: sh.exe -c "echo $PATH"
   - cmd: C:\MinGW\msys\1.0\bin\sh.exe -c "mingw-get update"
   - cmd: ls -l C:\MinGW\var\lib\mingw-get\data\
-  - cmd: C:\MinGW\msys\1.0\bin\sh.exe -c 'ls -l /'
-  - cmd : find %MINGW% -name "pacman"
-  - cmd : find %MINGW64% -name "pacman"
-  - cmd : find %MSYS% -name "pacman"
-  - cmd : find %MSYS64% -name "pacman"
+  - cmd: C:\MinGW\msys\1.0\bin\sh.exe -c 'grep cppunit /c/MinGW/var/lib/mingw-get/data/*xml'
+  - cmd : find %MINGW% -name "pacman.exe"
+  - cmd : find %MINGW64% -name "pacman.exe"
+  - cmd : find %MSYS% -name "pacman.exe"
+  - cmd : find %MSYS64% -name "pacman.exe"
   - cmd: pacman --noconfirm -S mingw32/mingw-w64-i686-cppunit
   - cmd: set CPATH=%CPATH%;C:\msys64\mingw32\include
   - cmd: set LIBRARY_PATH=%LIBRARY_PATH%;C:\msys64\mingw32\lib

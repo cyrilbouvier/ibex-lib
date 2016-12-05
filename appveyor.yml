@@ -40,14 +40,15 @@ test_script:
   - cmd: sh.exe -c "./waf utest"
 
 on_failure:
-  - cmd: find %MINGW% -name "libgcc_s_dw2-1.dll"
-  - cmd: find %MINGW% -name "libstdc++-6.dll"
   - cmd: find %MINGW% -name "libcppunit-1-13-0.dll"
   - cmd: ls -l __build__\tests\utest_Arith.exe
+  - cmd: sh.exe -c "ls -l /usr/local/bin"
+  - cmd: sh.exe -c "ls -l /usr/local/lib"
   - cmd: objdump -p __build__\tests\utest_Arith.exe | grep -i dll
   - cmd: objdump -p C:\MinGW/msys/1.0/local/bin/libcppunit-1-13-0.dll | grep -i dll
   - cmd: objdump -p C:\MinGW\bin\gcc.exe | grep -i dll
   - cmd: objdump -p C:\MinGW\msys\1.0\bin\make.exe | grep -i dll
+  - cmd: __build__\tests\utest_Arith.exe
   - cmd: sh.exe -c "./__build__/tests/utest_Arith"
   - cmd: cat C:\projects\ibex-lib\__build__\config.log
   - cmd: cat C:\projects\ibex-lib\__build__\utest_config.log

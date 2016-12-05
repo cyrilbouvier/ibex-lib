@@ -29,6 +29,7 @@ install:
   - cmd: set PATH=%PATH%;C:\msys64\mingw32\bin
   - cmd: sh.exe -c "g++ -o test.exe test.cpp"
   - cmd: sh.exe -c "./test.exe"
+  - cmd: objdump -p test.exe
 
 build_script:
   - cmd: sh.exe -c "./waf configure --interval-lib=$TEST_INTERVAL_LIB --prefix=$PREFIX"

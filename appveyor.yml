@@ -37,10 +37,12 @@ test_script:
   - cmd: set LIBRARY_PATH=%LIBRARY_PATH%;%MSYS%\local\lib;%MSYS%\local\bin
   - cmd: set LD_LIBRARY_PATH=%LD_LIBRARY_PATH%;%MSYS%\local\lib;%MSYS%\local\bin
   - cmd: set PATH=%PATH%;%MSYS%\local\lib;%MSYS%\local\bin
+  - cmd: set PATH=%PATH%;%PREFIX%\lib
   - cmd: sh.exe -c "echo $LD_LIBRARY_PATH"
   - cmd: sh.exe -c "echo $LIBRARY_PATH"
   - cmd: sh.exe -c "echo $PATH"
   - cmd: sh.exe -c 'find /usr/local -name "*cppunit*"'
+  - cmd: find %PREFIX% -name "*ibex*"
   - cmd: sh.exe -c "./waf utest"
 
 on_failure:

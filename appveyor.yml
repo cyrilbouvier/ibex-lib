@@ -37,12 +37,6 @@ test_script:
   - cmd: set PATH=%PATH%;%PREFIX%\lib;%PREFIX%\lib\ibex\3rd
   - cmd: echo %PATH%
   - cmd: sh.exe -c "echo $PATH"
-  - cmd: set LIBRARY_PATH=%PATH%
-  - cmd: set LD_LIBRARY_PATH=%PATH%
-  - cmd: sh.exe -c "echo $LIBRARY_PATH"
-  - cmd: sh.exe -c "echo $LD_LIBRARY_PATH"
-  - cmd: sh.exe -c "export LD_LIBRARY_PATH=$PATH ; echo $LD_LIBRARY_PATH"
-  - cmd: sh.exe -c "export LD_LIBRARY_PATH=$PATH ; export LIBRARY_PATH=$PATH ; ./waf utest"
   - cmd: sh.exe -c "./waf utest"
 
 on_failure:
@@ -50,13 +44,12 @@ on_failure:
   - cmd: find %MINGW% -name "libstdc++-6.dll"
   - cmd: find %MINGW% -name "libcppunit-1-13-0.dll"
   - cmd: ls -l __build__\tests\utest_Arith.exe
-  - cmd: objdump -p __build__\tests\utest_Arith.exe
-  - cmd: objdump -p C:\MinGW\bin\gcc.exe
-  - cmd: objdump -p C:\MinGW\bin\gcc.exe
-  - cmd: objdump -p C:\MinGW\msys\1.0\bin\make.exe
-  - cmd: ls -l C:\MinGW
-  - cmd: ls -l C:\MinGW\lib
-  - cmd: ls -l C:\
+  - cmd: objdump -p __build__\tests\utest_Arith.exe | grep -i dll
+  - cmd: objdump -p C:\MinGW\bin\gcc.exe | grep -i dll
+  - cmd: objdump -p C:\MinGW\msys\1.0\bin\make.exe | grep -i dll
+  - cmd: ls -l C:\MinGW\libexec
+  - cmd: ls -l C:\MinGW\mingw32
+  - cmd: ls -l C:\MinGW\share
   - cmd: sh.exe -c "./__build__/tests/utest_Arith"
   - cmd: cat C:\projects\ibex-lib\__build__\config.log
   - cmd: cat C:\projects\ibex-lib\__build__\utest_config.log

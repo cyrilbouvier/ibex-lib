@@ -32,23 +32,22 @@ build_script:
   - cmd: sh.exe -c "./waf build install clean"
 
 test_script:
-  #- cmd: set CPATH=%CPATH%;%PREFIX%\include
-  #- cmd: set LIBRARY_PATH=%LIBRARY_PATH%;%PREFIX%\lib
-  - cmd: set LIBRARY_PATH=%LIBRARY_PATH%;%MSYS%\local\lib;%MSYS%\local\bin
-  - cmd: set LD_LIBRARY_PATH=%LD_LIBRARY_PATH%;%MSYS%\local\lib;%MSYS%\local\bin
   - cmd: set PATH=%PATH%;%MSYS%\local\lib;%MSYS%\local\bin
   - cmd: set PATH=%PATH%;%PREFIX%\lib;%PREFIX%\lib\ibex\3rd
   - cmd: sh.exe -c "echo $PATH"
+  - cmd: set LIBRARY_PATH=%PATH%
+  - cmd: set LD_LIBRARY_PATH=%PATH%
   - cmd: sh.exe -c "./waf utest"
 
 on_failure:
-  - cmd: ls -l %MSYS%/bin
-  - cmd: ls -l %MSYS%/lib
-  - cmd: ls -l %MINGW%/bin
-  - cmd: ls -l %MINGW%/lib
-  - cmd: depends.exe /c /oc:dump __build__\tests\utest_Arith
-  - cmd: sh.exe -c "cat dump"
-  - cmd: cd __build__\tests && utest_Arith.exe
+  - cmd: find %MINGW% -name "*.dll*"
+  - cmd: find %MSYS% -name "*.dll*"
+  - cmd: find %MINGW% -name "*.a*"
+  - cmd: find %MSYS% -name "*.a*"
+  - cmd: find %MINGW% -name "*.so*"
+  - cmd: find %MSYS% -name "*.so*"
+  - cmd: ls -l __build__\tests\utest_Arith.exe
+  - cmd: objdump -p __build__\tests\utest_Arith.exe | grep "DLL Name:" 
   - cmd: sh.exe -c "./__build__/tests/utest_Arith"
   - cmd: cat C:\projects\ibex-lib\__build__\config.log
   - cmd: cat C:\projects\ibex-lib\__build__\utest_config.log

@@ -37,17 +37,14 @@ test_script:
   - cmd: set LIBRARY_PATH=%LIBRARY_PATH%;%MSYS%\local\lib;%MSYS%\local\bin
   - cmd: set LD_LIBRARY_PATH=%LD_LIBRARY_PATH%;%MSYS%\local\lib;%MSYS%\local\bin
   - cmd: set PATH=%PATH%;%MSYS%\local\lib;%MSYS%\local\bin
-  - cmd: set PATH=%PATH%;%PREFIX%\lib
-  - cmd: sh.exe -c "echo $LD_LIBRARY_PATH"
-  - cmd: sh.exe -c "echo $LIBRARY_PATH"
+  - cmd: set PATH=%PATH%;%PREFIX%\lib;%PREFIX%\lib\ibex\3rd
   - cmd: sh.exe -c "echo $PATH"
-  - cmd: sh.exe -c 'find /usr/local -name "*cppunit*"'
-  - cmd: ls -l %PREFIX%/lib
-  - cmd: ls -l %PREFIX%/lib/ibex
-  - cmd: ls -l %PREFIX%/bin
   - cmd: sh.exe -c "./waf utest"
 
 on_failure:
+  - cmd: ls -l %MSYS%
+  - cmd: ls -l %MINGW%
+  - cmd: ls -l %PREFIX%
   - cmd: sh.exe -c "./__build__/tests/utest_Arith"
   - cmd: cat C:\projects\ibex-lib\__build__\config.log
   - cmd: cat C:\projects\ibex-lib\__build__\utest_config.log

@@ -42,7 +42,9 @@ test_script:
   - cmd: sh.exe -c "echo $LIBRARY_PATH"
   - cmd: sh.exe -c "echo $PATH"
   - cmd: sh.exe -c 'find /usr/local -name "*cppunit*"'
-  - cmd: find %PREFIX% -name "*ibex*"
+  - cmd: ls -l %PREFIX%/lib
+  - cmd: ls -l %PREFIX%/lib/ibex
+  - cmd: ls -l %PREFIX%/bin
   - cmd: sh.exe -c "./waf utest"
 
 on_failure:

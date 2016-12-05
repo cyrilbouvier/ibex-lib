@@ -40,13 +40,13 @@ test_script:
   - cmd: sh.exe -c "./waf utest"
 
 on_failure:
-  - cmd: find C:\ -name "libgcc_s_dw2-1.dll"
-  - cmd: find C:\ -name "libstdc++-6.dll"
-  - cmd: find C:\ -name "KERNEL32.dll"
-  - cmd: find C:\ -name "msvcrt.dll"
-  - cmd: find C:\ -name "libcppunit-1-13-0.dll"
+  - cmd: find %MINGW% -name "libgcc_s_dw2-1.dll"
+  - cmd: find %MINGW% -name "libstdc++-6.dll"
+  - cmd: find %MINGW% -name "libcppunit-1-13-0.dll"
   - cmd: ls -l __build__\tests\utest_Arith.exe
   - cmd: objdump __build__\tests\utest_Arith.exe
+  - cmd: nm __build__\tests\utest_Arith.exe
+  - cmd: readelf -a __build__\tests\utest_Arith.exe
   - cmd: ls -l C:\MinGW
   - cmd: ls -l C:\MinGW\lib
   - cmd: sh.exe -c "./__build__/tests/utest_Arith"

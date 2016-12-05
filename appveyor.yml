@@ -46,7 +46,7 @@ on_failure:
   - cmd: ls -l %MSYS%/lib
   - cmd: ls -l %MINGW%/bin
   - cmd: ls -l %MINGW%/lib
-  - cmd: depends.exe /oc:dump __build__\tests\utest_Arith"
+  - cmd: depends.exe /c /oc:dump __build__\tests\utest_Arith"
   - cmd: sh.exe -c "cat dump"
   - cmd: cd __build__\tests && utest_Arith.exe
   - cmd: sh.exe -c "./__build__/tests/utest_Arith"

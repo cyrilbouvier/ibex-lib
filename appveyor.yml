@@ -12,7 +12,7 @@ environment:
 install:
   - cmd: set MINGW=C:\MinGW
   - cmd: set MSYS=%MINGW%\msys\1.0
-  - cmd: set PATH=%MINGW%\bin;%MSYS%\bin;%PATH%
+  - cmd: set PATH=%MINGW%\bin;%MSYS%\bin;%MINGW%\lib;%MSYS%\lib;%PATH%
   - cmd: set PREFIX=%HOMEDRIVE%%HOMEPATH%
   # print some info
   - cmd: uname -a
@@ -42,9 +42,12 @@ test_script:
   - cmd: sh.exe -c "./waf utest"
 
 on_failure:
-  - cmd: ls -l %MSYS%
-  - cmd: ls -l %MINGW%
-  - cmd: ls -l %PREFIX%
+  - cmd: ls -l %MSYS%/bin
+  - cmd: ls -l %MSYS%/lib
+  - cmd: ls -l %MINGW%/bin
+  - cmd: ls -l %MINGW%/lib
+  - cmd: depends.exe /oc:dump __build__\tests\utest_Arith"
+  - cmd: sh.exe -c "cat dump"
   - cmd: cd __build__\tests && utest_Arith.exe
   - cmd: sh.exe -c "./__build__/tests/utest_Arith"
   - cmd: cat C:\projects\ibex-lib\__build__\config.log

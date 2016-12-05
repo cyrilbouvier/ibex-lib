@@ -45,6 +45,7 @@ on_failure:
   - cmd: ls -l %MSYS%
   - cmd: ls -l %MINGW%
   - cmd: ls -l %PREFIX%
+  - cmd: cd __build__\tests && utest_Arith.exe
   - cmd: sh.exe -c "./__build__/tests/utest_Arith"
   - cmd: cat C:\projects\ibex-lib\__build__\config.log
   - cmd: cat C:\projects\ibex-lib\__build__\utest_config.log

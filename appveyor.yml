@@ -34,9 +34,13 @@ build_script:
 test_script:
   - cmd: set PATH=%PATH%;%MSYS%\local\lib;%MSYS%\local\bin
   - cmd: set PATH=%PATH%;%PREFIX%\lib;%PREFIX%\lib\ibex\3rd
+  - cmd: echo %PATH%
   - cmd: sh.exe -c "echo $PATH"
   - cmd: set LIBRARY_PATH=%PATH%
   - cmd: set LD_LIBRARY_PATH=%PATH%
+  - cmd: sh.exe -c "echo $LIBRARY_PATH"
+  - cmd: sh.exe -c "echo $LD_LIBRARY_PATH"
+  - cmd: sh.exe -c "export LD_LIBRARY_PATH=$PATH ; echo $LD_LIBRARY_PATH"
   - cmd: sh.exe -c "./waf utest"
 
 on_failure:
@@ -44,7 +48,7 @@ on_failure:
   - cmd: find %MINGW% -name "libstdc++-6.dll"
   - cmd: find %MINGW% -name "libcppunit-1-13-0.dll"
   - cmd: ls -l __build__\tests\utest_Arith.exe
-  - cmd: objdump __build__\tests\utest_Arith.exe
+  - cmd: objdump -x __build__\tests\utest_Arith.exe
   - cmd: nm __build__\tests\utest_Arith.exe
   - cmd: readelf -a __build__\tests\utest_Arith.exe
   - cmd: ls -l C:\MinGW

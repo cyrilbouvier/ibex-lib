@@ -12,7 +12,8 @@ environment:
 install:
   - cmd: set MINGW=C:\MinGW
   - cmd: set MSYS=%MINGW%\msys\1.0
-  - cmd: set PATH=%MINGW%\bin;%MSYS%\bin;%MINGW%\lib;%MSYS%\lib;%PATH%
+  - cmd: set PATH=%MSYS%;%MSYS%\bin;%MSYS%\lib;%PATH%
+  - cmd: set PATH=%MINGW%;%MINGW%\bin;%MINGW%\lib;%PATH%
   - cmd: set PREFIX=%HOMEDRIVE%%HOMEPATH%
   # print some info
   - cmd: uname -a
@@ -48,7 +49,7 @@ on_failure:
   - cmd: find %MINGW% -name "libstdc++-6.dll"
   - cmd: find %MINGW% -name "libcppunit-1-13-0.dll"
   - cmd: ls -l __build__\tests\utest_Arith.exe
-  - cmd: objdump -x __build__\tests\utest_Arith.exe
+  - cmd: objdump -p __build__\tests\utest_Arith.exe
   - cmd: nm __build__\tests\utest_Arith.exe
   - cmd: readelf -a __build__\tests\utest_Arith.exe
   - cmd: ls -l C:\MinGW

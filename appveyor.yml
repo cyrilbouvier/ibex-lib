@@ -37,13 +37,14 @@ test_script:
   - cmd: set PATH=%PATH%;%PREFIX%\lib;%PREFIX%\lib\ibex\3rd
   - cmd: echo %PATH%
   - cmd: sh.exe -c "echo $PATH"
+  - cmd: sh.exe -c "cp cppunit-1.13.2/.libs/* ."
+  - cmd: sh.exe -c "cp cppunit-1.13.2/.libs/* __build__/tests/"
   - cmd: sh.exe -c "./waf utest"
 
 on_failure:
   - cmd: find %MINGW% -name "libcppunit-1-13-0.dll"
   - cmd: ls -l __build__\tests\utest_Arith.exe
-  - cmd: sh.exe -c "ls -l /usr/local/bin"
-  - cmd: sh.exe -c "ls -l /usr/local/lib"
+  - cmd: sh.exe -c "/usr/local/bin/cppunit-config"
   - cmd: objdump -p __build__\tests\utest_Arith.exe | grep -i dll
   - cmd: objdump -p C:\MinGW/msys/1.0/local/bin/libcppunit-1-13-0.dll | grep -i dll
   - cmd: objdump -p C:\MinGW\bin\gcc.exe | grep -i dll

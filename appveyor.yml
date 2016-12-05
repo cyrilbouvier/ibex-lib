@@ -22,7 +22,7 @@ install:
   # install cppunit library from source
   - cmd: sh.exe -c "wget http://dev-www.libreoffice.org/src/cppunit-1.13.2.tar.gz"
   - cmd: sh.exe -c "tar -xzf cppunit-1.13.2.tar.gz"
-  - cmd: sh.exe -c "cd cppunit-1.13.2 && ./configure && make && make check && make install"
+  - cmd: sh.exe -c "cd cppunit-1.13.2 && ./configure && make && make install"
   # Set PKG_CONFIG_PATH to install directories of Ibex and cppunit
   - cmd: set PKG_CONFIG_PATH=%PREFIX%\share\pkgconfig;%MSYS%\local\lib\pkgconfig
   # Add the directory of pkg-config in PATH

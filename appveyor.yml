@@ -37,9 +37,9 @@ test_script:
   - cmd: set PATH=%PATH%;%PREFIX%\lib;%PREFIX%\lib\ibex\3rd
   - cmd: echo %PATH%
   - cmd: sh.exe -c "echo $PATH"
-  - cmd: sh.exe -c "ls -al cppunit-1.13.2/src/cppunit"
+  - cmd: sh.exe -c "mkdir __build__/tests"
   - cmd: sh.exe -c "cp cppunit-1.13.2/src/cppunit/.libs/* ."
-  - cmd: sh.exe -c "cp cppunit-1.13.2/.libs/* __build__/tests/"
+  - cmd: sh.exe -c "cp cppunit-1.13.2/src/cppunit/.libs/* __build__/tests/"
   - cmd: sh.exe -c "./waf utest"
 
 on_failure:

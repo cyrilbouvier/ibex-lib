@@ -21,6 +21,7 @@ install:
   - cmd: set CPATH=%CPATH%;C:\msys64\mingw32\include
   - cmd: set LIBRARY_PATH=%LIBRARY_PATH%;C:\msys64\mingw32\lib
   - cmd: set PREFIX=%HOMEDRIVE%%HOMEPATH%
+  - cmd: set PATH=%PATH%;%PREFIX%\lib;%PREFIX%\lib\ibex\3rd
 
 build_script:
   - cmd: sh.exe -c "./waf configure --interval-lib=$TEST_INTERVAL_LIB --prefix=$PREFIX"
@@ -30,9 +31,10 @@ test_script:
   - cmd: set PKG_CONFIG_PATH=%PREFIX%\share\pkgconfig
   # We need to add the path to libcppunit in PATH
   - cmd: set PATH=%PATH%;C:\msys64\mingw32\bin
-  - cmd: python -x %cd%\waf utest
+  - cmd: sh.exe -c "./waf utest"
 
 on_failure:
   - cmd: cat C:\projects\ibex-lib\__build__\config.log
   - cmd: cat C:\projects\ibex-lib\__build__\utest_config.log
   - cmd: cat C:\projects\ibex-lib\__build__\utest_run.log
+  - cmd: objdump -p __build__\tests\utest_Arith.exe | grep -i dll

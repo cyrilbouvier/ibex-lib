@@ -24,7 +24,7 @@ install:
   - cmd: set PATH=%PATH%;%PREFIX%\lib;%PREFIX%\lib\ibex\3rd
 
 build_script:
-  - cmd: sh.exe -c "./waf configure --interval-lib=$TEST_INTERVAL_LIB --prefix=$PREFIX --with-optim --optim-lib=soplex"
+  - cmd: sh.exe -c "./waf configure --interval-lib=$TEST_INTERVAL_LIB --prefix=$PREFIX --with-optim"
   - cmd: sh.exe -c "./waf build install clean"
 
 test_script:

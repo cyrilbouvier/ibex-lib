@@ -119,3 +119,13 @@
  
  const size_t MAX = 1000000;
  const size_t LOOPS = 10;
+--- gaol-4.2.0/gaol/gaol_interval_sse.h	2017-04-05 09:16:07.249083315 +0200
++++ gaol-4.2.0/gaol/gaol_interval_sse.h	2017-04-05 09:16:41.246786586 +0200
+@@ -31,6 +31,7 @@
+ 
+ #ifndef __gaol_interval_sse_h__
+ #define __gaol_interval_sse_h__
++#include <stdio.h>
+ 
+   __GAOL_PUBLIC__ std::ostream& operator<<(std::ostream& out, const __m128d& x);
+ 
